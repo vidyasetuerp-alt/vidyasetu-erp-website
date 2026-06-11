@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600">
+  <rect width="960" height="600" fill="#edf4ff"/>
+  <rect x="86" y="76" width="788" height="448" rx="18" fill="#fff" stroke="#d7e4fa"/>
+  <rect x="136" y="126" width="688" height="58" rx="12" fill="#06286f"/>
+  <g fill="#f7f9ff" stroke="#dce6f7">
+    <rect x="136" y="228" width="98" height="70" rx="10"/><rect x="254" y="228" width="98" height="70" rx="10"/><rect x="372" y="228" width="98" height="70" rx="10"/><rect x="490" y="228" width="98" height="70" rx="10"/><rect x="608" y="228" width="98" height="70" rx="10"/><rect x="726" y="228" width="98" height="70" rx="10"/>
+    <rect x="136" y="322" width="98" height="70" rx="10"/><rect x="254" y="322" width="98" height="70" rx="10"/><rect x="372" y="322" width="98" height="70" rx="10"/><rect x="490" y="322" width="98" height="70" rx="10"/><rect x="608" y="322" width="98" height="70" rx="10"/><rect x="726" y="322" width="98" height="70" rx="10"/>
+  </g>
+  <path d="M167 263l18 18 30-35M521 356l18 18 30-35M639 263l18 18 30-35" fill="none" stroke="#1f66d1" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
