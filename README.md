@@ -72,7 +72,7 @@ You can also connect a GitHub repository:
 - Current contact email is `info@vidyasetuerptech.com`.
 - Current support email is `support@vidyasetuerptech.com`.
 - Current mobile number is `+91 8638663327`.
-- Current WhatsApp number is `+913678260401`.
+- WhatsApp contact is enabled through the floating button and contact card.
 - Replace `images/vidyasetu-logo.png` if you want to update the brand logo.
 - Replace placeholder screenshot SVG files in `images/` with real product screenshots when available.
 - The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.0.0/VidyaSetuERP_Setup_v1.03.exe`.
