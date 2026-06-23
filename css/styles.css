@@ -495,6 +495,56 @@ img {
   color: var(--primary);
 }
 
+.intro-offer-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: min(540px, calc(100% - 34px));
+  aspect-ratio: 3.45 / 1;
+  min-height: 120px;
+  margin: 18px auto 22px;
+  padding: 28px 84px;
+  color: #111827;
+  filter: drop-shadow(0 12px 18px rgba(6, 16, 42, 0.16));
+  isolation: isolate;
+  text-align: center;
+}
+
+.intro-offer-banner::before,
+.intro-offer-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    50% 0%, 56% 18%, 68% 6%, 70% 25%, 88% 18%, 82% 36%,
+    100% 40%, 84% 50%, 100% 60%, 82% 64%, 88% 82%, 70% 75%,
+    68% 94%, 56% 82%, 50% 100%, 44% 82%, 32% 94%, 30% 75%,
+    12% 82%, 18% 64%, 0% 60%, 16% 50%, 0% 40%, 18% 36%,
+    12% 18%, 30% 25%, 32% 6%, 44% 18%
+  );
+}
+
+.intro-offer-banner::before {
+  z-index: -2;
+  background: #ef1b1b;
+}
+
+.intro-offer-banner::after {
+  z-index: -1;
+  inset: 5px;
+  background: #fff500;
+}
+
+.intro-offer-banner span {
+  display: block;
+  max-width: 340px;
+  font-size: clamp(1.12rem, 2.45vw, 1.7rem);
+  line-height: 1.12;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
 .price-table-wrap {
   overflow-x: auto;
 }
@@ -1265,6 +1315,16 @@ section.admin-only.visible {
   .pricing-card,
   .pricing-details {
     padding: 22px;
+  }
+
+  .intro-offer-banner {
+    width: 100%;
+    min-height: 108px;
+    padding: 24px 48px;
+  }
+
+  .intro-offer-banner span {
+    font-size: 1.02rem;
   }
 
   .whatsapp-float,
