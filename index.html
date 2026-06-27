@@ -70,6 +70,7 @@
           <li class="nav-item"><a class="nav-link" href="#download">Download</a></li>
           <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
           <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="#after-sales-feedback">After Sales</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
@@ -161,7 +162,7 @@
 
     <section class="section muted" id="why">
       <div class="container">
-        <div class="row g-5 align-items-center">
+        <div class="row g-4 align-items-start">
           <div class="col-lg-5 reveal">
             <p class="section-kicker">Why choose VidyaSetu ERP</p>
             <h2 class="section-title">Designed for reliability, not just features.</h2>
@@ -463,11 +464,80 @@
                     </div>
                   </fieldset>
                 </div>
-                <div class="col-12"><label for="futureFeatures">Any features needed in the app in future updates?</label><textarea class="form-control" id="futureFeatures" rows="4" placeholder="Tell us about reports, certificates, sync, communication, or any workflow your school needs"></textarea></div>
+                <div class="col-12"><label for="customerFeedback">Customer Feedback</label><textarea class="form-control" id="customerFeedback" rows="3" placeholder="Share your experience with VidyaSetu ERP" required></textarea></div>
+                <div class="col-12"><label for="futureFeatures">Any features needed in the app in future updates?</label><textarea class="form-control" id="futureFeatures" rows="3" placeholder="Tell us about reports, certificates, sync, communication, or any workflow your school needs"></textarea></div>
                 <div class="col-12"><button class="btn btn-primary btn-lg w-100" type="submit">Submit Feedback</button></div>
               </div>
               <p class="form-note" id="feedbackStatus" role="status"></p>
             </form>
+          </div>
+        </div>
+        <div class="published-feedback-panel reveal" id="published-feedback">
+          <div class="published-feedback-head">
+            <div>
+              <p class="section-kicker">Customer voices</p>
+              <h3>Published customer feedback</h3>
+            </div>
+            <span id="publishedFeedbackCount">0 feedback</span>
+          </div>
+          <div class="published-feedback-grid" id="publishedFeedbackList" aria-live="polite">
+            <article class="published-feedback-empty">No customer feedback published yet.</article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="after-sales-feedback">
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-5 reveal">
+            <p class="section-kicker">After-sales feedback</p>
+            <h2 class="section-title">Tell us about your support experience.</h2>
+            <p class="section-copy">Share feedback after installation, training, support, updates, or issue resolution. Approved public details are shown below without mobile or email information.</p>
+            <div class="feedback-points">
+              <span><i class="bi bi-tools"></i> Installation support</span>
+              <span><i class="bi bi-person-video3"></i> Staff training</span>
+              <span><i class="bi bi-headset"></i> Issue resolution</span>
+            </div>
+          </div>
+          <div class="col-lg-7 reveal">
+            <form class="after-sales-form feedback-form">
+              <div class="row g-3">
+                <div class="col-md-6"><label for="afterSalesSchool">School Name</label><input class="form-control" id="afterSalesSchool" type="text" placeholder="School name" required></div>
+                <div class="col-md-6"><label for="afterSalesContact">Contact Person</label><input class="form-control" id="afterSalesContact" type="text" placeholder="Full name" required></div>
+                <div class="col-md-6"><label for="afterSalesRole">Designation</label><select class="form-control form-select" id="afterSalesRole" required><option value="">Select designation</option><option>Administrator</option><option>Principal</option><option>Vice-Principal</option><option>Accountant</option><option>Teacher</option><option>Office Staff</option><option>Other</option></select></div>
+                <div class="col-md-6"><label for="afterSalesMobile">Mobile Number</label><input class="form-control" id="afterSalesMobile" type="tel" placeholder="+91"></div>
+                <div class="col-md-6"><label for="afterSalesService">Service Area</label><select class="form-control form-select" id="afterSalesService" required><option value="">Select service</option><option>Installation</option><option>Data Migration</option><option>Staff Training</option><option>Technical Support</option><option>Software Update</option><option>Bug Fix / Issue Resolution</option><option>Overall After-Sales Service</option></select></div>
+                <div class="col-md-6">
+                  <fieldset class="feedback-fieldset compact-fieldset">
+                    <legend>Service rating</legend>
+                    <div class="rating-options">
+                      <label><input type="radio" name="afterSalesRating" value="5" required><span>5</span></label>
+                      <label><input type="radio" name="afterSalesRating" value="4"><span>4</span></label>
+                      <label><input type="radio" name="afterSalesRating" value="3"><span>3</span></label>
+                      <label><input type="radio" name="afterSalesRating" value="2"><span>2</span></label>
+                      <label><input type="radio" name="afterSalesRating" value="1"><span>1</span></label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="col-12"><label for="afterSalesComment">Feedback to Publish</label><textarea class="form-control" id="afterSalesComment" rows="3" placeholder="Share your after-sales experience with VidyaSetu Tech" required></textarea></div>
+                <div class="col-12"><label for="afterSalesImprovement">Improvement Suggestion</label><textarea class="form-control" id="afterSalesImprovement" rows="3" placeholder="Optional: tell us what we can improve"></textarea></div>
+                <div class="col-12"><button class="btn btn-primary btn-lg w-100" type="submit">Submit After-Sales Feedback</button></div>
+              </div>
+              <p class="form-note" id="afterSalesStatus" role="status"></p>
+            </form>
+          </div>
+        </div>
+        <div class="published-feedback-panel reveal">
+          <div class="published-feedback-head">
+            <div>
+              <p class="section-kicker">After-sales voices</p>
+              <h3>Published after-sales feedback</h3>
+            </div>
+            <span id="publishedAfterSalesCount">0 feedback</span>
+          </div>
+          <div class="published-feedback-grid" id="publishedAfterSalesList" aria-live="polite">
+            <article class="published-feedback-empty">No after-sales feedback published yet.</article>
           </div>
         </div>
       </div>
@@ -549,11 +619,12 @@
                   <th>Records</th>
                   <th>Purchase</th>
                   <th>Overall</th>
+                  <th>Customer Feedback</th>
                   <th>Future Features</th>
                 </tr>
               </thead>
               <tbody id="feedbackTableBody">
-                <tr><td colspan="12">No app feedback saved yet.</td></tr>
+                <tr><td colspan="13">No app feedback saved yet.</td></tr>
               </tbody>
             </table>
           </div>
@@ -631,6 +702,7 @@
             <a href="#download">Download</a>
             <a href="#pricing">Pricing</a>
             <a href="#feedback">Feedback</a>
+            <a href="#after-sales-feedback">After Sales</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>

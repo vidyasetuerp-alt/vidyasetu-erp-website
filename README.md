@@ -79,7 +79,8 @@ You can also connect a GitHub repository:
 - The download counter is hidden from public visitors. Open `index.html?admin=1#download` to view the admin-only local counter.
 - The admin download counter is stored in each browser with `localStorage`; a real global admin count requires a backend or analytics service.
 - Demo request submissions are saved in the browser with `localStorage`. Open `index.html?admin=1#admin-leads` to view, export, or clear saved leads on that device.
-- App feedback submissions are saved in the browser with `localStorage`. Open `index.html?admin=1#admin-feedback` to view, export XLSX/CSV, or clear saved feedback on that device.
+- App feedback submissions are saved in the browser with `localStorage` and published as customer feedback cards on the site after submission. Open `index.html?admin=1#admin-feedback` to view, export XLSX/CSV, or clear saved feedback on that device.
+- After-sales feedback submissions are saved separately in the browser with `localStorage` and published as after-sales feedback cards on the site after submission.
 - For live public lead capture from all visitors, connect the form to a backend, Google Forms, Netlify Forms, Firebase, or Supabase.
 - When uploading to GitHub Pages, keep installer files under 100 MB or use GitHub Releases for larger installers.
 - Update social media links in the footer.
