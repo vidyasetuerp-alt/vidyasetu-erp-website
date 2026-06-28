@@ -75,7 +75,7 @@ You can also connect a GitHub repository:
 - WhatsApp contact is enabled through the floating button and contact card.
 - Replace `images/vidyasetu-logo.png` if you want to update the brand logo.
 - Replace placeholder screenshot SVG files in `images/` with real product screenshots when available.
-- The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.0.0/VidyaSetuERP_Setup_v1.03.exe`.
+- The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.03/VidyaSetuERP_Setup_v1.03.exe`.
 - The download counter is hidden from public visitors. Open `index.html?admin=1#download` to view the admin-only local counter.
 - The admin download counter is stored in each browser with `localStorage`; a real global admin count requires a backend or analytics service.
 - Demo request submissions are saved in the browser with `localStorage`. Open `index.html?admin=1#admin-leads` to view, export, or clear saved leads on that device.
