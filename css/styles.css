@@ -593,6 +593,114 @@ img {
   font-weight: 900;
 }
 
+.license-plan-card {
+  background: var(--bg);
+}
+
+.license-plan-table {
+  min-width: 1180px;
+}
+
+.license-plan-table th,
+.license-plan-table td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.license-plan-table thead th {
+  padding: 10px 12px;
+  color: #05070d;
+  background: #f7f8fb;
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.license-plan-table thead tr:first-child th {
+  font-size: 1.35rem;
+}
+
+.license-plan-table thead tr:nth-child(2) th {
+  font-size: 0.96rem;
+}
+
+.license-plan-table .capacity-note {
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.license-plan-table .license-name-head {
+  min-width: 230px;
+  text-align: left;
+  font-style: normal;
+}
+
+.license-plan-table tbody th {
+  min-width: 230px;
+  padding: 7px 10px;
+  color: #05070d;
+  background: #fff;
+}
+
+.license-plan-table tbody th span {
+  display: block;
+  font-size: 1.45rem;
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.license-plan-table tbody th small {
+  display: block;
+  color: #05070d;
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.license-plan-table .price-cell {
+  min-width: 118px;
+  padding: 8px 7px;
+  color: #fff;
+  text-align: center;
+}
+
+.license-plan-table .price-cell strong {
+  display: block;
+  color: #fff;
+  font-size: 1.42rem;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.license-plan-table .price-regular {
+  background: #ff7808;
+}
+
+.license-plan-table .price-intro {
+  background: #08b65a;
+}
+
+.license-plan-table .plan-rate-row th,
+.license-plan-table .plan-rate-row td {
+  padding: 4px 7px;
+  color: #05070d;
+  background: #fff;
+  font-size: 0.86rem;
+  font-style: italic;
+  font-weight: 800;
+  text-align: center;
+}
+
+.license-plan-table .plan-rate-row th {
+  text-align: left;
+}
+
+.license-plan-table .plan-rate-row + .plan-price-row th,
+.license-plan-table .plan-rate-row + .plan-price-row td {
+  border-top-width: 8px;
+}
+
 .pricing-details {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
