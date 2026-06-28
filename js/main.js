@@ -20,8 +20,6 @@
   const clearLeads = document.getElementById("clearLeads");
   const feedbackCount = document.getElementById("feedbackCount");
   const feedbackTableBody = document.getElementById("feedbackTableBody");
-  const publishedFeedbackCount = document.getElementById("publishedFeedbackCount");
-  const publishedFeedbackList = document.getElementById("publishedFeedbackList");
   const publishedAfterSalesCount = document.getElementById("publishedAfterSalesCount");
   const publishedAfterSalesList = document.getElementById("publishedAfterSalesList");
   const exportFeedback = document.getElementById("exportFeedback");
@@ -247,39 +245,6 @@
     `).join("");
   }
 
-  function renderPublishedFeedback() {
-    if (!publishedFeedbackList) return;
-    const feedbackItems = getFeedback().filter((item) => item.customerFeedback || item.futureFeatures);
-    if (publishedFeedbackCount) {
-      publishedFeedbackCount.textContent = `${feedbackItems.length} feedback`;
-    }
-
-    if (!feedbackItems.length) {
-      publishedFeedbackList.innerHTML = '<article class="published-feedback-empty">No customer feedback published yet.</article>';
-      return;
-    }
-
-    publishedFeedbackList.innerHTML = feedbackItems.slice(0, 6).map((item) => {
-      const modules = [...(item.importantModules || []), item.importantModulesOther].filter(Boolean).slice(0, 3);
-      const ratingText = item.overallRating ? `${item.overallRating}/5` : "Not rated";
-      return `
-        <article class="published-feedback-card">
-          <div class="feedback-card-top">
-            <div>
-              <h4>${escapeHtml(item.school || "VidyaSetu customer")}</h4>
-              <span>${escapeHtml(item.designation || "School user")}</span>
-            </div>
-            <div class="feedback-rating-pill">${escapeHtml(ratingText)}</div>
-          </div>
-          <p>${escapeHtml(item.customerFeedback || item.futureFeatures)}</p>
-          <div class="feedback-module-tags">
-            ${modules.map((module) => `<span>${escapeHtml(module)}</span>`).join("")}
-          </div>
-        </article>
-      `;
-    }).join("");
-  }
-
   function renderPublishedAfterSalesFeedback() {
     if (!publishedAfterSalesList) return;
     const items = getAfterSalesFeedback().filter((item) => item.comment);
@@ -415,12 +380,10 @@
     if (!window.confirm("Clear all saved app feedback on this device?")) return;
     saveFeedback([]);
     renderFeedback();
-    renderPublishedFeedback();
   });
 
   renderLeads();
   renderFeedback();
-  renderPublishedFeedback();
   renderPublishedAfterSalesFeedback();
 
   form?.addEventListener("submit", (event) => {
@@ -476,8 +439,7 @@
     feedbackItems.unshift(feedback);
     saveFeedback(feedbackItems);
     renderFeedback();
-    renderPublishedFeedback();
-    feedbackStatus.textContent = "Thank you. Your feedback has been saved and published on this site.";
+    feedbackStatus.textContent = "Thank you. Your feedback has been saved for the VidyaSetu ERP team.";
     feedbackForm.reset();
   });
 
