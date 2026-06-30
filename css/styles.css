@@ -1,30 +1,30 @@
 :root {
-  --bg: #ffffff;
-  --surface: #f7f9ff;
-  --surface-strong: #edf4ff;
-  --text: #0b1f4f;
-  --muted: #5d6c86;
-  --line: #dce6f7;
-  --primary: #06286f;
-  --primary-strong: #031b4c;
-  --accent: #ff8a00;
-  --accent-soft: #fff1dc;
-  --nav-bg: rgba(255, 255, 255, 0.86);
-  --shadow: 0 18px 50px rgba(6, 40, 111, 0.13);
+  --bg: #fbfdff;
+  --surface: #eef7f6;
+  --surface-strong: #dff1ff;
+  --text: #0c1f2e;
+  --muted: #5d6d78;
+  --line: #d6e6ea;
+  --primary: #075e68;
+  --primary-strong: #063f49;
+  --accent: #f97316;
+  --accent-soft: #fff3e8;
+  --nav-bg: rgba(251, 253, 255, 0.9);
+  --shadow: 0 16px 38px rgba(7, 94, 104, 0.12);
 }
 
 [data-theme="dark"] {
-  --bg: #071226;
-  --surface: #0d1b34;
-  --surface-strong: #10284d;
+  --bg: #06141a;
+  --surface: #0d2229;
+  --surface-strong: #12343d;
   --text: #eef4ff;
-  --muted: #b4c0d7;
-  --line: #223a67;
-  --primary: #4f8dff;
-  --primary-strong: #8bb6ff;
-  --accent: #ff9a16;
-  --accent-soft: rgba(255, 138, 0, 0.14);
-  --nav-bg: rgba(7, 18, 38, 0.86);
+  --muted: #b6c7cb;
+  --line: #21444d;
+  --primary: #46d4c5;
+  --primary-strong: #8af3e7;
+  --accent: #fb923c;
+  --accent-soft: rgba(249, 115, 22, 0.15);
+  --nav-bg: rgba(6, 20, 26, 0.88);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
@@ -41,7 +41,10 @@ body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 8% 3%, rgba(70, 212, 197, 0.13), transparent 28%),
+    radial-gradient(circle at 92% 9%, rgba(249, 115, 22, 0.12), transparent 30%),
+    var(--bg);
   letter-spacing: 0;
   transition: background 0.25s ease, color 0.25s ease;
 }
@@ -56,7 +59,7 @@ img {
 }
 
 .navbar {
-  padding: 14px 0;
+  padding: 10px 0;
   background: var(--nav-bg);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid transparent;
@@ -64,7 +67,7 @@ img {
 }
 
 .navbar.scrolled {
-  padding: 9px 0;
+  padding: 7px 0;
   border-color: var(--line);
   box-shadow: 0 12px 34px rgba(7, 32, 29, 0.08);
 }
@@ -77,8 +80,8 @@ img {
 }
 
 .brand-logo {
-  width: 216px;
-  height: 54px;
+  width: 190px;
+  height: 48px;
   display: block;
   object-fit: contain;
   border-radius: 8px;
@@ -95,8 +98,9 @@ img {
 
 .nav-link {
   color: var(--muted);
-  font-weight: 600;
-  padding: 0.65rem 0.85rem !important;
+  font-size: 0.94rem;
+  font-weight: 700;
+  padding: 0.52rem 0.68rem !important;
 }
 
 .nav-link:hover,
@@ -129,7 +133,8 @@ img {
 
 .btn {
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: 800;
+  box-shadow: none;
 }
 
 .btn-primary {
@@ -148,10 +153,10 @@ img {
 
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 760px;
   overflow: hidden;
   color: #fff;
-  background: #071226;
+  background: #06262d;
 }
 
 .hero-bg,
@@ -169,8 +174,8 @@ img {
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, rgba(4, 15, 42, 0.96) 0%, rgba(6, 40, 111, 0.8) 43%, rgba(6, 40, 111, 0.18) 100%),
-    linear-gradient(0deg, rgba(4, 15, 42, 0.74), transparent 36%);
+    linear-gradient(90deg, rgba(5, 28, 34, 0.96) 0%, rgba(7, 94, 104, 0.78) 45%, rgba(7, 94, 104, 0.14) 100%),
+    linear-gradient(0deg, rgba(5, 28, 34, 0.78), transparent 34%);
 }
 
 .hero-content {
@@ -193,10 +198,10 @@ img {
 
 .hero-section h1 {
   max-width: 840px;
-  margin: 18px 0 18px;
-  font-size: clamp(2.45rem, 5vw, 5rem);
-  line-height: 1.02;
-  font-weight: 800;
+  margin: 14px 0 14px;
+  font-size: clamp(2.35rem, 4.3vw, 4.55rem);
+  line-height: 1.04;
+  font-weight: 900;
 }
 
 .hero-section .lead {
@@ -209,7 +214,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin: 32px 0 34px;
+  margin: 26px 0 28px;
 }
 
 .hero-stats {
@@ -220,7 +225,7 @@ img {
 
 .hero-stats div {
   min-width: 150px;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.08);
@@ -242,11 +247,11 @@ img {
 }
 
 .section {
-  padding: 96px 0;
+  padding: 78px 0;
 }
 
 .strip {
-  padding: 48px 0;
+  padding: 38px 0;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
@@ -257,21 +262,21 @@ img {
 
 .section-heading {
   max-width: 760px;
-  margin: 0 auto 48px;
+  margin: 0 auto 36px;
   text-align: center;
 }
 
 .section-title {
-  margin: 10px 0 16px;
+  margin: 8px 0 12px;
   color: var(--text);
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
   line-height: 1.12;
   font-weight: 800;
 }
 
 .section-copy {
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .audience-grid {

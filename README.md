@@ -1,4 +1,4 @@
-# VidyaSetu Tech Website
+﻿# VidyaSetu Tech Website
 
 Static responsive website for VidyaSetu Tech and VidyaSetu ERP.
 
@@ -6,20 +6,20 @@ Static responsive website for VidyaSetu Tech and VidyaSetu ERP.
 
 ```text
 /
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── main.js
-├── images/
-│   ├── favicon.svg
-│   ├── vidyasetu-logo.png
-│   ├── vidyasetu-logo-horizontal.png
-│   ├── vidyasetu-erp-hero.png
-│   └── screenshot and logo assets
-├── downloads/
-│   └── VidyaSetuERP_Setup_v1.03.exe
-└── README.md
+â”œâ”€â”€ index.html
+â”œâ”€â”€ css/
+â”‚   â””â”€â”€ styles.css
+â”œâ”€â”€ js/
+â”‚   â””â”€â”€ main.js
+â”œâ”€â”€ images/
+â”‚   â”œâ”€â”€ favicon.svg
+â”‚   â”œâ”€â”€ vidyasetu-logo.png
+â”‚   â”œâ”€â”€ vidyasetu-logo-horizontal.png
+â”‚   â”œâ”€â”€ vidyasetu-erp-hero.png
+â”‚   â””â”€â”€ screenshot and logo assets
+â”œâ”€â”€ downloads/
+â”‚   â””â”€â”€ VidyaSetuERP_Setup_v1.05.exe
+â””â”€â”€ README.md
 ```
 
 ## Run Locally
@@ -75,12 +75,13 @@ You can also connect a GitHub repository:
 - WhatsApp contact is enabled through the floating button and contact card.
 - Replace `images/vidyasetu-logo.png` if you want to update the brand logo.
 - Replace placeholder screenshot SVG files in `images/` with real product screenshots when available.
-- The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.03/VidyaSetuERP_Setup_v1.03.exe`.
-- The download counter is hidden from public visitors. Open `index.html?admin=1#download` to view the admin-only local counter.
+- The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.05/VidyaSetuERP_Setup_v1.05.exe`.
+- The admin page is `admin.html` and uses the password configured in `js/admin.js`.
 - The admin download counter is stored in each browser with `localStorage`; a real global admin count requires a backend or analytics service.
-- Demo request submissions are saved in the browser with `localStorage`. Open `index.html?admin=1#admin-leads` to view, export, or clear saved leads on that device.
-- App feedback submissions are saved in the browser with `localStorage`. Open `index.html?admin=1#admin-feedback` to view, export XLSX/CSV, or clear saved feedback on that device.
+- Demo request submissions are saved in the browser with `localStorage` and can be viewed/exported from `admin.html`.
+- App feedback submissions are saved in the browser with `localStorage` and can be viewed/exported from `admin.html`.
 - After-sales feedback submissions are saved separately in the browser with `localStorage` and published as after-sales feedback cards on the site after submission.
 - For live public lead capture from all visitors, connect the form to a backend, Google Forms, Netlify Forms, Firebase, or Supabase.
 - When uploading to GitHub Pages, keep installer files under 100 MB or use GitHub Releases for larger installers.
 - Update social media links in the footer.
+
