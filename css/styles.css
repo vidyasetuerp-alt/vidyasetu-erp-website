@@ -35,10 +35,12 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   background:
@@ -704,6 +706,177 @@ img {
 .license-plan-table .plan-rate-row + .plan-price-row th,
 .license-plan-table .plan-rate-row + .plan-price-row td {
   border-top-width: 8px;
+}
+
+.license-board {
+  position: relative;
+  padding: 28px;
+  border: 1px solid rgba(7, 94, 104, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(7, 94, 104, 0.08), rgba(249, 115, 22, 0.07)),
+    var(--bg);
+  box-shadow: var(--shadow);
+}
+
+.license-offer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #062f37;
+  background: linear-gradient(90deg, #fff4df, #e0fbef);
+  font-size: 0.98rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.license-offer-strip i {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.license-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.license-card {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.35fr) minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+[data-theme="dark"] .license-card {
+  background: rgba(16, 28, 36, 0.88);
+}
+
+.license-card.featured {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.12);
+}
+
+.license-card.enterprise {
+  border-color: rgba(7, 94, 104, 0.34);
+}
+
+.license-card-head {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.license-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--primary);
+  font-size: 1.35rem;
+  box-shadow: 0 10px 22px rgba(7, 94, 104, 0.22);
+}
+
+.license-card.featured .license-icon {
+  background: var(--accent);
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.22);
+}
+
+.license-card h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 1.28rem;
+  font-weight: 900;
+}
+
+.license-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+  font-weight: 700;
+}
+
+.duration-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.duration-card {
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid rgba(7, 94, 104, 0.12);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.duration-card > span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.duration-card strong,
+.intro-price b {
+  display: block;
+  color: var(--text);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.duration-card strong {
+  font-size: clamp(1.16rem, 1.8vw, 1.46rem);
+}
+
+.duration-card em,
+.intro-price em {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.duration-card > em {
+  margin-top: 5px;
+}
+
+.intro-price {
+  margin-top: 11px;
+  padding: 10px;
+  border: 1px solid rgba(8, 182, 90, 0.24);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(8, 182, 90, 0.13), rgba(8, 182, 90, 0.06));
+}
+
+.intro-price small {
+  display: block;
+  margin-bottom: 5px;
+  color: #087542;
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.intro-price b {
+  color: #078048;
+  font-size: clamp(1.1rem, 1.6vw, 1.36rem);
 }
 
 .pricing-details {
@@ -1490,6 +1663,14 @@ section.admin-only.visible {
     grid-template-columns: 1fr;
   }
 
+  .license-card {
+    grid-template-columns: 1fr;
+  }
+
+  .duration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .pricing-details,
   .pricing-details ul {
     grid-template-columns: 1fr;
@@ -1559,9 +1740,42 @@ section.admin-only.visible {
     padding: 22px;
   }
 
+  .feedback-matrix-head,
+  .feedback-matrix-row {
+    grid-template-columns: minmax(112px, 1.35fr) repeat(4, minmax(44px, 0.7fr));
+    min-width: 0;
+  }
+
+  .feedback-matrix-head span,
+  .feedback-matrix-row > span,
+  .feedback-matrix-row label {
+    min-height: 42px;
+    padding: 8px 6px;
+    font-size: 0.72rem;
+  }
+
   .pricing-card,
   .pricing-details {
     padding: 22px;
+  }
+
+  .license-board {
+    padding: 16px;
+  }
+
+  .license-offer-strip {
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .license-card {
+    padding: 15px;
+  }
+
+  .duration-grid {
+    grid-template-columns: 1fr;
   }
 
   .intro-offer-banner {
