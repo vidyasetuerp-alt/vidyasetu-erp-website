@@ -24,7 +24,7 @@
         </a>
         <p class="section-kicker">Admin access</p>
         <h1>VidyaSetu ERP dashboard</h1>
-        <p>Enter the admin password to view downloads, demo requests, app feedback, and after-sales feedback saved in this browser.</p>
+        <p>Enter the admin password to view downloads, activation requests, demo requests, app feedback, and after-sales feedback saved in this browser.</p>
         <form id="adminLoginForm">
           <label for="adminPassword">Password</label>
           <input class="form-control" id="adminPassword" type="password" autocomplete="current-password" required>
@@ -41,7 +41,7 @@
             <img class="brand-logo" src="images/vidyasetu-logo-horizontal.png" alt="VidyaSetu ERP logo">
           </a>
           <p class="section-kicker">Admin dashboard</p>
-          <h1>Downloads & feedback</h1>
+          <h1>Downloads, activation & feedback</h1>
         </div>
         <div class="admin-top-actions">
           <a class="btn btn-outline-primary" href="index.html"><i class="bi bi-arrow-left"></i> Back to Site</a>
@@ -51,9 +51,27 @@
 
       <section class="admin-metrics">
         <article><span id="adminDownloadCount">0</span><strong>Downloads</strong></article>
+        <article><span id="adminActivationCount">0</span><strong>Activation requests</strong></article>
         <article><span id="adminLeadCount">0</span><strong>Demo requests</strong></article>
         <article><span id="adminAppFeedbackCount">0</span><strong>App feedback</strong></article>
         <article><span id="adminAfterSalesCount">0</span><strong>After-sales feedback</strong></article>
+      </section>
+
+      <section class="admin-data-section">
+        <div class="admin-section-head">
+          <div>
+            <p class="section-kicker">License activation</p>
+            <h2>School activation accounts</h2>
+          </div>
+          <button class="btn btn-outline-primary" data-export="activation" type="button"><i class="bi bi-filetype-csv"></i> Export CSV</button>
+        </div>
+        <p class="admin-inline-status" id="adminActivationStatus" role="status"></p>
+        <div class="table-responsive">
+          <table class="table admin-table activation-admin-table">
+            <thead><tr><th>Updated</th><th>School</th><th>Login</th><th>Machine ID</th><th>Capacity</th><th>Duration</th><th>Actual Price</th><th>Discount Price</th><th>Status</th><th>Activation Key</th><th>Activation Date</th><th>Expiry Date</th><th>Admin Message</th><th>Action</th></tr></thead>
+            <tbody id="adminActivationRows"></tbody>
+          </table>
+        </div>
       </section>
 
       <section class="admin-data-section">

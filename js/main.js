@@ -9,6 +9,24 @@
   const feedbackStatus = document.getElementById("feedbackStatus");
   const afterSalesForm = document.querySelector(".after-sales-form");
   const afterSalesStatus = document.getElementById("afterSalesStatus");
+  const schoolLoginForm = document.getElementById("schoolLoginForm");
+  const schoolLoginStatus = document.getElementById("schoolLoginStatus");
+  const schoolCreateForm = document.getElementById("schoolCreateForm");
+  const schoolCreateStatus = document.getElementById("schoolCreateStatus");
+  const schoolAccountPanel = document.getElementById("schoolAccountPanel");
+  const schoolActivationForm = document.getElementById("schoolActivationForm");
+  const schoolActivationFormStatus = document.getElementById("schoolActivationFormStatus");
+  const schoolActivationStatus = document.getElementById("schoolActivationStatus");
+  const schoolActivationKey = document.getElementById("schoolActivationKey");
+  const schoolActivationDate = document.getElementById("schoolActivationDate");
+  const schoolExpiryDate = document.getElementById("schoolExpiryDate");
+  const schoolAdminNote = document.getElementById("schoolAdminNote");
+  const schoolLogout = document.getElementById("schoolLogout");
+  const schoolDashboardPage = document.getElementById("schoolDashboardPage");
+  const portalLicenseCapacity = document.getElementById("portalLicenseCapacity");
+  const portalLicenseDuration = document.getElementById("portalLicenseDuration");
+  const portalActualPrice = document.getElementById("portalActualPrice");
+  const portalDiscountPrice = document.getElementById("portalDiscountPrice");
   const softwareDownload = document.getElementById("softwareDownload");
   const downloadCount = document.getElementById("downloadCount");
   const adminDownloadStats = document.getElementById("adminDownloadStats");
@@ -29,6 +47,10 @@
   const leadsKey = "vidyasetu-demo-leads";
   const feedbackKey = "vidyasetu-app-feedback";
   const afterSalesKey = "vidyasetu-after-sales-feedback";
+  const schoolAccountsKey = "vidyasetu-school-accounts";
+  const schoolActivationUpdatesKey = "vidyasetu-school-activation-updates";
+  const schoolSessionKey = "vidyasetu-school-session";
+  const schoolApiModeKey = "vidyasetu-school-api-mode";
   const isAdminView = new URLSearchParams(window.location.search).get("admin") === "1";
   const evaluationModules = [
     ["schoolManagement", "School Management"],
@@ -40,6 +62,148 @@
     ["userInterface", "User Interface"],
     ["overallExperience", "Overall Experience"]
   ];
+  let currentSchoolAccount = null;
+
+  async function requestJson(url, options = {}) {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+      }
+    });
+    let payload = {};
+    try {
+      payload = await response.json();
+    } catch {
+      payload = {};
+    }
+    if (!response.ok) {
+      const error = new Error(payload.message || "Request failed.");
+      error.code = payload.error;
+      error.status = response.status;
+      throw error;
+    }
+    return payload;
+  }
+
+  function schoolAuthHeaders() {
+    const token = getSchoolSessionToken();
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }
+
+  function getSchoolSessionToken() {
+    return sessionStorage.getItem(schoolSessionKey) || localStorage.getItem(schoolSessionKey);
+  }
+
+  function setSchoolSessionToken(token) {
+    sessionStorage.setItem(schoolSessionKey, token);
+    localStorage.setItem(schoolSessionKey, token);
+  }
+
+  function clearSchoolSessionToken() {
+    sessionStorage.removeItem(schoolSessionKey);
+    localStorage.removeItem(schoolSessionKey);
+    sessionStorage.removeItem(schoolApiModeKey);
+    localStorage.removeItem(schoolApiModeKey);
+  }
+
+  async function apiSchoolLogin(email, mobile, password) {
+    const payload = await requestJson("/api/school/login", {
+      method: "POST",
+      body: JSON.stringify({ email, mobile, password })
+    });
+    setSchoolSessionToken(payload.token);
+    sessionStorage.setItem(schoolApiModeKey, "1");
+    localStorage.setItem(schoolApiModeKey, "1");
+    currentSchoolAccount = payload.school;
+    renderSchoolAccount(payload.school);
+    return payload.school;
+  }
+
+  async function apiSchoolCreate(email, mobile, password) {
+    const payload = await requestJson("/api/school/create", {
+      method: "POST",
+      body: JSON.stringify({ email, mobile, password })
+    });
+    setSchoolSessionToken(payload.token);
+    sessionStorage.setItem(schoolApiModeKey, "1");
+    localStorage.setItem(schoolApiModeKey, "1");
+    currentSchoolAccount = payload.school;
+    renderSchoolAccount(payload.school);
+    return payload.school;
+  }
+
+  async function apiGetSchoolAccount() {
+    const payload = await requestJson("/api/school/account", {
+      headers: schoolAuthHeaders()
+    });
+    currentSchoolAccount = payload.school;
+    return payload.school;
+  }
+
+  async function apiSaveSchoolDetails(details) {
+    const payload = await requestJson("/api/school/details", {
+      method: "POST",
+      headers: schoolAuthHeaders(),
+      body: JSON.stringify(details)
+    });
+    currentSchoolAccount = payload.school;
+    return payload.school;
+  }
+
+  async function apiGetDownloadCount() {
+    const payload = await requestJson("/api/downloads");
+    return Number(payload.count || 0);
+  }
+
+  async function apiIncrementDownloadCount() {
+    const payload = await requestJson("/api/downloads", {
+      method: "POST",
+      body: JSON.stringify({})
+    });
+    return Number(payload.count || 0);
+  }
+
+  function setDownloadCountValue(count) {
+    if (downloadCount) downloadCount.textContent = Number(count || 0).toString();
+    if (adminDownloadStats) adminDownloadStats.textContent = Number(count || 0).toString();
+  }
+
+  const licensePrices = {
+    "200": {
+      label: "Upto 200 Students",
+      plan: "Basic School",
+      "1": { actual: "6,999", discount: "6,499" },
+      "2": { actual: "13,399", discount: "12,399" },
+      "5": { actual: "31,999", discount: "29,499" },
+      "10": { actual: "61,599", discount: "56,599" }
+    },
+    "500": {
+      label: "Upto 500 Students",
+      plan: "Standard School",
+      "1": { actual: "9,999", discount: "9,299" },
+      "2": { actual: "19,199", discount: "17,799" },
+      "5": { actual: "45,999", discount: "42,499" },
+      "10": { actual: "88,799", discount: "81,799" }
+    },
+    "1000": {
+      label: "Upto 1000 Students",
+      plan: "Premium School",
+      "1": { actual: "13,999", discount: "12,799" },
+      "2": { actual: "27,099", discount: "24,699" },
+      "5": { actual: "65,999", discount: "59,999" },
+      "10": { actual: "1,28,799", discount: "1,16,799" }
+    },
+    unlimited: {
+      label: "Unlimited Students",
+      plan: "Enterprise School",
+      "1": { actual: "21,999", discount: "20,399" },
+      "2": { actual: "43,099", discount: "39,899" },
+      "5": { actual: "1,05,999", discount: "97,999" },
+      "10": { actual: "2,08,799", discount: "1,92,799" }
+    }
+  };
 
   const savedTheme = localStorage.getItem("vidyasetu-theme");
   if (savedTheme) {
@@ -114,9 +278,13 @@
 
   counters.forEach((counter) => counterObserver.observe(counter));
 
-  function renderDownloadCount() {
-    if (!downloadCount) return;
-    downloadCount.textContent = Number(localStorage.getItem(downloadCountKey) || 0).toString();
+  async function renderDownloadCount() {
+    try {
+      const count = await apiGetDownloadCount();
+      setDownloadCountValue(count);
+    } catch {
+      setDownloadCountValue(Number(localStorage.getItem(downloadCountKey) || 0));
+    }
   }
 
   if (isAdminView) {
@@ -128,9 +296,13 @@
   renderDownloadCount();
 
   softwareDownload?.addEventListener("click", () => {
-    const nextCount = Number(localStorage.getItem(downloadCountKey) || 0) + 1;
-    localStorage.setItem(downloadCountKey, nextCount.toString());
-    renderDownloadCount();
+    apiIncrementDownloadCount()
+      .then(setDownloadCountValue)
+      .catch(() => {
+        const nextCount = Number(localStorage.getItem(downloadCountKey) || 0) + 1;
+        localStorage.setItem(downloadCountKey, nextCount.toString());
+        setDownloadCountValue(nextCount);
+      });
   });
 
   function getLeads() {
@@ -167,6 +339,197 @@
 
   function saveAfterSalesFeedback(items) {
     localStorage.setItem(afterSalesKey, JSON.stringify(items));
+  }
+
+  function getSchoolAccounts() {
+    try {
+      return JSON.parse(localStorage.getItem(schoolAccountsKey) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function getSchoolActivationUpdates() {
+    try {
+      return JSON.parse(localStorage.getItem(schoolActivationUpdatesKey) || "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  function saveSchoolAccounts(accounts) {
+    localStorage.setItem(schoolAccountsKey, JSON.stringify(accounts));
+  }
+
+  function normalizeLoginValue(value) {
+    return String(value || "").trim().toLowerCase();
+  }
+
+  function normalizeMobile(value) {
+    return normalizeLoginValue(value).replace(/\s+/g, "");
+  }
+
+  function normalizeMachineId(value) {
+    return normalizeLoginValue(value).replace(/\s+/g, "");
+  }
+
+  function getCurrentSchoolAccount() {
+    if (currentSchoolAccount) return currentSchoolAccount;
+    const accountId = getSchoolSessionToken();
+    if (!accountId) return null;
+    const account = getSchoolAccounts().find((item) => item.id === accountId) || null;
+    if (!account) return null;
+    const activationUpdate = getSchoolActivationUpdates()[account.id] || {};
+    return { ...account, ...activationUpdate };
+  }
+
+  function setFieldValue(id, value) {
+    const element = document.getElementById(id);
+    if (element) element.value = value || "";
+  }
+
+  function getSelectedPrice() {
+    const capacity = portalLicenseCapacity?.value || "";
+    const duration = portalLicenseDuration?.value || "";
+    return licensePrices[capacity]?.[duration] || null;
+  }
+
+  function formatPrice(value) {
+    return value ? `₹ ${value}` : "Select option";
+  }
+
+  function updateLicensePricePreview(account) {
+    const price = getSelectedPrice();
+    if (portalActualPrice) portalActualPrice.textContent = formatPrice(price?.actual || account?.actualPrice);
+    if (portalDiscountPrice) portalDiscountPrice.textContent = formatPrice(price?.discount || account?.discountPrice);
+  }
+
+  function renderSchoolAccount(account) {
+    if (!account || !schoolAccountPanel) return;
+    schoolAccountPanel.hidden = false;
+    setFieldValue("portalSchoolName", account.schoolName);
+    setFieldValue("portalContactPerson", account.contactPerson);
+    setFieldValue("portalCity", account.city);
+    setFieldValue("portalLicenseCapacity", account.licenseCapacity || account.students);
+    setFieldValue("portalLicenseDuration", account.licenseDuration);
+    setFieldValue("portalMachineId", account.machineId);
+    setFieldValue("portalRemarks", account.remarks);
+    if (schoolActivationStatus) schoolActivationStatus.textContent = account.status || "Pending";
+    if (schoolActivationKey) schoolActivationKey.textContent = account.activationKey || "Not issued yet";
+    if (schoolActivationDate) schoolActivationDate.textContent = account.activationDate || "Not set";
+    if (schoolExpiryDate) schoolExpiryDate.textContent = account.expiryDate || "Not set";
+    if (schoolAdminNote) schoolAdminNote.textContent = account.adminNote || "No message from admin yet.";
+    updateLicensePricePreview(account);
+  }
+
+  async function refreshSchoolDashboardAccount() {
+    if (!schoolDashboardPage) return;
+    const token = getSchoolSessionToken();
+    if (!token) {
+      clearSchoolSessionToken();
+      window.location.href = "school-login.html";
+      return;
+    }
+
+    if (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1") {
+      try {
+        const apiAccount = await apiGetSchoolAccount();
+        renderSchoolAccount(apiAccount);
+        return;
+      } catch {
+        clearSchoolSessionToken();
+        window.location.href = "school-login.html";
+        return;
+      }
+    }
+
+    const account = getCurrentSchoolAccount();
+    if (!account) {
+      clearSchoolSessionToken();
+      window.location.href = "school-login.html";
+      return;
+    }
+    currentSchoolAccount = account;
+    renderSchoolAccount(account);
+  }
+
+  function clearSchoolAccountView() {
+    if (schoolAccountPanel) schoolAccountPanel.hidden = true;
+    if (schoolActivationStatus) schoolActivationStatus.textContent = "Pending";
+    if (schoolActivationKey) schoolActivationKey.textContent = "Not issued yet";
+    if (schoolActivationDate) schoolActivationDate.textContent = "Not set";
+    if (schoolExpiryDate) schoolExpiryDate.textContent = "Not set";
+    if (schoolAdminNote) schoolAdminNote.textContent = "No message from admin yet.";
+    schoolActivationForm?.reset();
+  }
+
+  function findSchoolAccount(accounts, email, mobile) {
+    const normalizedEmail = normalizeLoginValue(email);
+    const normalizedMobile = normalizeMobile(mobile);
+    return accounts.find((item) => normalizeLoginValue(item.email) === normalizedEmail && normalizeMobile(item.mobile) === normalizedMobile) || null;
+  }
+
+  function loginSchoolAccount(email, mobile, password) {
+    const accounts = getSchoolAccounts();
+    const account = findSchoolAccount(accounts, email, mobile);
+
+    if (!account) {
+      return { error: "ACCOUNT_NOT_FOUND" };
+    }
+
+    if (account && account.password && account.password !== password) {
+      return { error: "PASSWORD_MISMATCH" };
+    }
+
+    if (account && !account.password) {
+      account.password = password;
+      account.updatedAt = new Date().toLocaleString("en-IN");
+      saveSchoolAccounts(accounts);
+    }
+
+    setSchoolSessionToken(account.id);
+    renderSchoolAccount(account);
+    return account;
+  }
+
+  function createSchoolAccount(email, mobile, password) {
+    const accounts = getSchoolAccounts();
+    const existing = findSchoolAccount(accounts, email, mobile);
+
+    if (existing) {
+      return { error: "ACCOUNT_EXISTS", email: existing.email, mobile: existing.mobile };
+    }
+
+    const account = {
+      id: `school-${Date.now()}`,
+      createdAt: new Date().toLocaleString("en-IN"),
+      updatedAt: new Date().toLocaleString("en-IN"),
+      email: email.trim(),
+      mobile: mobile.trim(),
+      password,
+      schoolName: "",
+      contactPerson: "",
+      city: "",
+      licenseCapacity: "",
+      licenseDuration: "",
+      actualPrice: "",
+      discountPrice: "",
+      students: "",
+      plan: "",
+      machineId: "",
+      remarks: "",
+      status: "Pending",
+      activationKey: "",
+      activationDate: "",
+      expiryDate: "",
+      adminNote: ""
+    };
+
+    accounts.unshift(account);
+    saveSchoolAccounts(accounts);
+    setSchoolSessionToken(account.id);
+    renderSchoolAccount(account);
+    return account;
   }
 
   function getCheckedValue(name) {
@@ -385,6 +748,191 @@
   renderLeads();
   renderFeedback();
   renderPublishedAfterSalesFeedback();
+  if (schoolDashboardPage && !getSchoolSessionToken()) {
+    window.location.href = "school-login.html";
+    return;
+  }
+  refreshSchoolDashboardAccount();
+  window.addEventListener("focus", refreshSchoolDashboardAccount);
+  window.addEventListener("pageshow", refreshSchoolDashboardAccount);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshSchoolDashboardAccount();
+  });
+  window.addEventListener("storage", (event) => {
+    if ([schoolAccountsKey, schoolActivationUpdatesKey].includes(event.key)) refreshSchoolDashboardAccount();
+  });
+  portalLicenseCapacity?.addEventListener("change", () => updateLicensePricePreview(getCurrentSchoolAccount()));
+  portalLicenseDuration?.addEventListener("change", () => updateLicensePricePreview(getCurrentSchoolAccount()));
+
+  schoolLoginForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = document.getElementById("portalEmail")?.value.trim() || "";
+    const mobile = document.getElementById("portalMobile")?.value.trim() || "";
+    const password = document.getElementById("portalPassword")?.value || "";
+
+    try {
+      await apiSchoolLogin(email, mobile, password);
+      if (schoolLoginStatus) {
+        schoolLoginStatus.textContent = "Account opened. Redirecting to school dashboard.";
+      }
+      window.location.href = "school-dashboard.html";
+      return;
+    } catch (error) {
+      if (error.status && error.status !== 404) {
+        clearSchoolSessionToken();
+        clearSchoolAccountView();
+        if (schoolLoginStatus) schoolLoginStatus.textContent = error.message || "Unable to login. Please try again.";
+        return;
+      }
+    }
+
+    const account = loginSchoolAccount(email, mobile, password);
+    sessionStorage.removeItem(schoolApiModeKey);
+    localStorage.removeItem(schoolApiModeKey);
+    if (account?.error === "ACCOUNT_NOT_FOUND") {
+      clearSchoolSessionToken();
+      clearSchoolAccountView();
+      if (schoolLoginStatus) schoolLoginStatus.textContent = "No school account found for this e-mail/mobile no. Please create an account first.";
+      return;
+    }
+    if (account?.error === "PASSWORD_MISMATCH") {
+      clearSchoolSessionToken();
+      clearSchoolAccountView();
+      if (schoolLoginStatus) schoolLoginStatus.textContent = "Password does not match this school account. Please check and try again.";
+      return;
+    }
+    if (schoolLoginStatus) {
+      schoolLoginStatus.textContent = "Account opened. Redirecting to school dashboard.";
+    }
+    window.location.href = "school-dashboard.html";
+  });
+
+  schoolCreateForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = document.getElementById("createPortalEmail")?.value.trim() || "";
+    const mobile = document.getElementById("createPortalMobile")?.value.trim() || "";
+    const password = document.getElementById("createPortalPassword")?.value || "";
+
+    try {
+      await apiSchoolCreate(email, mobile, password);
+      if (schoolCreateStatus) {
+        schoolCreateStatus.textContent = "School account created. Redirecting to activation details.";
+      }
+      window.location.href = "school-dashboard.html";
+      return;
+    } catch (error) {
+      if (error.status) {
+        clearSchoolSessionToken();
+        clearSchoolAccountView();
+        if (schoolCreateStatus) schoolCreateStatus.textContent = error.message || "Unable to create account. Please try again.";
+        return;
+      }
+    }
+
+    const account = createSchoolAccount(email, mobile, password);
+    sessionStorage.removeItem(schoolApiModeKey);
+    localStorage.removeItem(schoolApiModeKey);
+
+    if (account?.error === "ACCOUNT_EXISTS") {
+      clearSchoolSessionToken();
+      clearSchoolAccountView();
+      if (schoolCreateStatus) {
+        schoolCreateStatus.textContent = `Account already exist for ${account.email || email} email/mobile no.`;
+      }
+      return;
+    }
+
+    if (schoolCreateStatus) {
+      schoolCreateStatus.textContent = "School account created. Redirecting to activation details.";
+    }
+    window.location.href = "school-dashboard.html";
+  });
+
+  schoolActivationForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const account = getCurrentSchoolAccount();
+    if (!account) {
+      if (schoolActivationFormStatus) schoolActivationFormStatus.textContent = "Please open your school account first.";
+      return;
+    }
+
+    const machineId = document.getElementById("portalMachineId")?.value.trim() || "";
+    const licenseCapacity = portalLicenseCapacity?.value || "";
+    const licenseDuration = portalLicenseDuration?.value || "";
+    const selectedPrice = getSelectedPrice();
+
+    if (!selectedPrice) {
+      if (schoolActivationFormStatus) {
+        schoolActivationFormStatus.textContent = "Please select license capacity and duration to calculate the price.";
+      }
+      return;
+    }
+
+    const activationDetails = {
+      schoolName: document.getElementById("portalSchoolName")?.value.trim(),
+      contactPerson: document.getElementById("portalContactPerson")?.value.trim(),
+      city: document.getElementById("portalCity")?.value.trim(),
+      students: licensePrices[licenseCapacity]?.label || "",
+      plan: licensePrices[licenseCapacity]?.plan || "",
+      licenseCapacity,
+      licenseDuration,
+      licenseDurationLabel: `${licenseDuration} ${licenseDuration === "1" ? "Year" : "Years"}`,
+      actualPrice: selectedPrice.actual,
+      discountPrice: selectedPrice.discount,
+      machineId,
+      remarks: document.getElementById("portalRemarks")?.value.trim()
+    };
+
+    if (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1") {
+      try {
+        const savedAccount = await apiSaveSchoolDetails(activationDetails);
+        renderSchoolAccount(savedAccount);
+        if (schoolActivationFormStatus) {
+          schoolActivationFormStatus.textContent = "Activation details saved in database. The admin can now review your machine ID and provide the key.";
+        }
+        return;
+      } catch (error) {
+        if (schoolActivationFormStatus) {
+          schoolActivationFormStatus.textContent = error.message || "Unable to save activation details. Please try again.";
+        }
+        return;
+      }
+    }
+
+    const accounts = getSchoolAccounts();
+    const index = accounts.findIndex((item) => item.id === account.id);
+    if (index === -1) return;
+    const duplicateMachine = accounts.find((item) => item.id !== account.id && item.machineId && normalizeMachineId(item.machineId) === normalizeMachineId(machineId));
+    if (duplicateMachine) {
+      if (schoolActivationFormStatus) {
+        schoolActivationFormStatus.textContent = `Machine ID already registered with ${duplicateMachine.schoolName || duplicateMachine.email}. Please check the machine ID.`;
+      }
+      return;
+    }
+
+    accounts[index] = {
+      ...accounts[index],
+      updatedAt: new Date().toLocaleString("en-IN"),
+      ...activationDetails,
+      status: accounts[index].activationKey ? accounts[index].status || "Activated" : "Pending"
+    };
+
+    saveSchoolAccounts(accounts);
+    renderSchoolAccount(accounts[index]);
+    if (schoolActivationFormStatus) {
+      schoolActivationFormStatus.textContent = "Activation details saved. The admin can now review your machine ID and provide the key.";
+    }
+  });
+
+  schoolLogout?.addEventListener("click", () => {
+    clearSchoolSessionToken();
+    currentSchoolAccount = null;
+    clearSchoolAccountView();
+    if (schoolLoginStatus) schoolLoginStatus.textContent = "Logged out. Enter school login details to open the activation account again.";
+    schoolLoginForm?.reset();
+    schoolCreateForm?.reset();
+    if (schoolDashboardPage) window.location.href = "school-login.html";
+  });
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();

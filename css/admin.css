@@ -170,6 +170,39 @@
   min-width: 220px;
 }
 
+.activation-admin-table input,
+.activation-admin-table select,
+.activation-admin-table textarea {
+  min-width: 142px;
+  border-color: var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--bg);
+  font-size: 0.9rem;
+}
+
+.activation-admin-table textarea {
+  min-width: 200px;
+  min-height: 68px;
+  resize: vertical;
+}
+
+.activation-admin-table .btn {
+  white-space: nowrap;
+}
+
+.admin-row-actions {
+  display: grid;
+  gap: 8px;
+  min-width: 110px;
+}
+
+.admin-inline-status {
+  color: #0f7a3a;
+  font-weight: 800;
+  margin: -4px 0 14px;
+}
+
 @media (max-width: 991.98px) {
   .admin-metrics,
   .admin-info-grid {
@@ -197,5 +230,127 @@
   .admin-metrics,
   .admin-info-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Professional compact admin theme */
+.admin-body {
+  background:
+    linear-gradient(180deg, rgba(238, 243, 245, 0.96), rgba(246, 248, 250, 0.98)),
+    var(--surface);
+}
+
+[data-theme="dark"] .admin-body {
+  background:
+    linear-gradient(180deg, rgba(15, 32, 38, 0.98), rgba(8, 20, 24, 0.98)),
+    var(--surface);
+}
+
+.admin-shell {
+  padding: 20px;
+}
+
+.admin-login-card,
+.admin-topbar,
+.admin-metrics article,
+.admin-info-grid article,
+.admin-data-section {
+  box-shadow: var(--shadow-soft);
+}
+
+.admin-login-card {
+  padding: 22px;
+}
+
+.admin-login-card h1,
+.admin-dashboard h1 {
+  font-size: clamp(1.45rem, 2.4vw, 2.05rem);
+  line-height: 1.18;
+}
+
+.admin-login-card p,
+.admin-table td,
+.admin-info-grid span {
+  font-size: 0.9rem;
+}
+
+.admin-topbar {
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.admin-metrics {
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.admin-metrics article {
+  padding: 14px;
+}
+
+.admin-metrics span {
+  font-size: 1.45rem;
+}
+
+.admin-metrics strong {
+  font-size: 0.88rem;
+}
+
+.admin-data-section {
+  margin-top: 14px;
+  padding: 16px;
+}
+
+.admin-section-head {
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.admin-section-head h2 {
+  font-size: 1.1rem;
+}
+
+.admin-info-grid {
+  gap: 10px;
+}
+
+.admin-info-grid article {
+  padding: 13px;
+}
+
+.admin-table th {
+  font-size: 0.72rem;
+}
+
+.admin-table td {
+  min-width: 118px;
+}
+
+.activation-admin-table input,
+.activation-admin-table select,
+.activation-admin-table textarea {
+  min-width: 128px;
+  font-size: 0.84rem;
+}
+
+.activation-admin-table textarea {
+  min-width: 180px;
+  min-height: 58px;
+}
+
+.admin-row-actions {
+  min-width: 96px;
+}
+
+@media (max-width: 575.98px) {
+  .admin-shell {
+    padding: 10px;
+  }
+
+  .admin-login-card,
+  .admin-topbar,
+  .admin-data-section {
+    padding: 14px;
   }
 }

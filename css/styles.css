@@ -1,16 +1,18 @@
 :root {
-  --bg: #fbfdff;
-  --surface: #eef7f6;
-  --surface-strong: #dff1ff;
-  --text: #0c1f2e;
-  --muted: #5d6d78;
-  --line: #d6e6ea;
-  --primary: #075e68;
-  --primary-strong: #063f49;
-  --accent: #f97316;
-  --accent-soft: #fff3e8;
-  --nav-bg: rgba(251, 253, 255, 0.9);
-  --shadow: 0 16px 38px rgba(7, 94, 104, 0.12);
+  --bg: #f8fbfc;
+  --surface: #edf5f6;
+  --surface-strong: #dbecef;
+  --text: #10212b;
+  --muted: #5e707a;
+  --line: #d7e3e7;
+  --primary: #075967;
+  --primary-strong: #043f4a;
+  --accent: #e9671a;
+  --accent-soft: #fff2e8;
+  --nav-bg: rgba(248, 251, 252, 0.92);
+  --shadow: 0 18px 42px rgba(10, 47, 56, 0.1);
+  --shadow-soft: 0 8px 22px rgba(10, 47, 56, 0.07);
+  --card-bg: rgba(255, 255, 255, 0.88);
 }
 
 [data-theme="dark"] {
@@ -26,6 +28,8 @@
   --accent-soft: rgba(249, 115, 22, 0.15);
   --nav-bg: rgba(6, 20, 26, 0.88);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.26);
+  --card-bg: rgba(13, 34, 41, 0.9);
 }
 
 * {
@@ -43,10 +47,7 @@ body {
   overflow-x: hidden;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at 8% 3%, rgba(70, 212, 197, 0.13), transparent 28%),
-    radial-gradient(circle at 92% 9%, rgba(249, 115, 22, 0.12), transparent 30%),
-    var(--bg);
+  background: var(--bg);
   letter-spacing: 0;
   transition: background 0.25s ease, color 0.25s ease;
 }
@@ -1093,6 +1094,151 @@ section.admin-only.visible {
   font-size: 0.9rem;
 }
 
+.portal-section {
+  background:
+    linear-gradient(180deg, var(--surface), var(--bg));
+}
+
+.portal-points {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.portal-points span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--bg);
+  font-weight: 800;
+}
+
+.portal-points i {
+  color: var(--primary);
+  font-size: 1.15rem;
+}
+
+.school-portal-card {
+  position: relative;
+  padding: 26px;
+  border: 1px solid rgba(7, 94, 104, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(7, 94, 104, 0.08), rgba(249, 115, 22, 0.06)),
+    var(--bg);
+  box-shadow: var(--shadow);
+}
+
+.portal-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.portal-card-head h3 {
+  margin: 6px 0 0;
+  color: var(--text);
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.portal-card-head > i {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--primary);
+  font-size: 1.5rem;
+  box-shadow: 0 12px 28px rgba(7, 94, 104, 0.24);
+}
+
+.portal-auth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.school-login-form,
+.school-activation-form {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+[data-theme="dark"] .school-login-form,
+[data-theme="dark"] .school-activation-form {
+  background: rgba(16, 28, 36, 0.78);
+}
+
+.school-login-form label,
+.school-activation-form label {
+  margin-bottom: 7px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.school-login-form h3 {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 900;
+}
+
+.school-account-panel {
+  margin-top: 18px;
+}
+
+.account-status-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.account-status-card div,
+.admin-response-panel {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.account-status-card span,
+.admin-response-panel span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.account-status-card strong {
+  color: var(--primary);
+  font-size: 1.05rem;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
+.admin-response-panel {
+  margin-top: 18px;
+}
+
+.admin-response-panel p {
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+}
+
 .cta-band {
   padding: 72px 0;
   color: #fff;
@@ -1663,6 +1809,14 @@ section.admin-only.visible {
     grid-template-columns: 1fr;
   }
 
+  .account-status-card {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-auth-grid {
+    grid-template-columns: 1fr;
+  }
+
   .license-card {
     grid-template-columns: 1fr;
   }
@@ -1736,8 +1890,14 @@ section.admin-only.visible {
 
   .lead-form,
   .feedback-form,
-  .mission-panel {
+  .mission-panel,
+  .school-portal-card {
     padding: 22px;
+  }
+
+  .school-login-form,
+  .school-activation-form {
+    padding: 14px;
   }
 
   .feedback-matrix-head,
@@ -1804,5 +1964,619 @@ section.admin-only.visible {
   .whatsapp-float,
   .back-to-top {
     right: 14px;
+  }
+}
+
+/* Professional finish */
+.navbar {
+  border-bottom-color: rgba(215, 227, 231, 0.72);
+  box-shadow: 0 8px 24px rgba(10, 47, 56, 0.04);
+}
+
+.navbar.scrolled {
+  box-shadow: 0 14px 32px rgba(10, 47, 56, 0.1);
+}
+
+.brand-logo {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-soft);
+}
+
+.nav-link {
+  border-radius: 8px;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(7, 89, 103, 0.08);
+}
+
+.btn {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0;
+}
+
+.btn-lg {
+  min-height: 50px;
+  padding-inline: 20px;
+}
+
+.btn-primary {
+  box-shadow: 0 10px 22px rgba(7, 89, 103, 0.18);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 26px rgba(7, 89, 103, 0.24);
+}
+
+.btn-outline-primary {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="dark"] .btn-outline-primary {
+  background: rgba(13, 34, 41, 0.66);
+}
+
+.hero-section {
+  min-height: 720px;
+  background: #082d35;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(4, 24, 30, 0.96) 0%, rgba(7, 89, 103, 0.78) 48%, rgba(7, 89, 103, 0.12) 100%),
+    linear-gradient(0deg, rgba(4, 24, 30, 0.82), transparent 34%);
+}
+
+.eyebrow,
+.section-kicker {
+  letter-spacing: 0.1em;
+}
+
+.section-title {
+  letter-spacing: 0;
+  font-weight: 900;
+}
+
+.section-copy {
+  line-height: 1.75;
+}
+
+.audience-grid span,
+.feature-card,
+.advantage-card,
+.screenshot-card,
+.pricing-card,
+.lead-form,
+.feedback-form,
+.mission-panel,
+.contact-card,
+.price-table-card,
+.license-board,
+.pricing-details,
+.download-card,
+.school-portal-card,
+.published-feedback-panel,
+.published-feedback-card,
+.admin-panel {
+  border-color: rgba(215, 227, 231, 0.92);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.feature-card,
+.screenshot-card,
+.pricing-card,
+.contact-card,
+.license-card,
+.duration-card,
+.school-login-form,
+.school-activation-form,
+.download-meta div,
+.account-status-card div,
+.admin-response-panel {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.feature-card:hover,
+.screenshot-card:hover,
+.pricing-card:hover,
+.contact-card:hover,
+.license-card:hover,
+.duration-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(7, 89, 103, 0.34);
+  box-shadow: var(--shadow);
+}
+
+.feature-card i,
+.advantage-card i,
+.mission-panel i,
+.contact-card i,
+.download-icon,
+.license-icon,
+.portal-card-head > i {
+  background: linear-gradient(135deg, rgba(7, 89, 103, 0.12), rgba(7, 89, 103, 0.04));
+  color: var(--primary);
+  box-shadow: none;
+}
+
+.download-icon,
+.license-icon,
+.portal-card-head > i {
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+}
+
+.license-board,
+.school-portal-card,
+.download-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78)),
+    var(--bg);
+}
+
+[data-theme="dark"] .license-board,
+[data-theme="dark"] .school-portal-card,
+[data-theme="dark"] .download-card {
+  background:
+    linear-gradient(180deg, rgba(13, 34, 41, 0.94), rgba(13, 34, 41, 0.82)),
+    var(--bg);
+}
+
+.license-offer-strip {
+  color: #15313a;
+  background: linear-gradient(90deg, rgba(255, 242, 232, 0.98), rgba(219, 236, 239, 0.98));
+  border: 1px solid rgba(233, 103, 26, 0.18);
+}
+
+.duration-card,
+.account-status-card div,
+.admin-response-panel,
+.download-meta div {
+  background: rgba(255, 255, 255, 0.76);
+}
+
+[data-theme="dark"] .duration-card,
+[data-theme="dark"] .account-status-card div,
+[data-theme="dark"] .admin-response-panel,
+[data-theme="dark"] .download-meta div {
+  background: rgba(6, 20, 26, 0.72);
+}
+
+.form-control,
+.form-select {
+  border-color: rgba(215, 227, 231, 0.95);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgba(7, 89, 103, 0.72);
+  box-shadow: 0 0 0 0.2rem rgba(7, 89, 103, 0.13);
+}
+
+.portal-auth-grid {
+  align-items: stretch;
+}
+
+.school-login-form h3 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.account-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.account-toolbar strong {
+  color: var(--text);
+  font-weight: 900;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  background: #07171d;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 575.98px) {
+  .hero-section {
+    min-height: 760px;
+  }
+
+  .account-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .account-toolbar .btn {
+    width: 100%;
+  }
+}
+
+/* Professional compact theme */
+:root {
+  --bg: #f6f8fa;
+  --surface: #eef3f5;
+  --surface-strong: #e2ebee;
+  --text: #14242d;
+  --muted: #64717a;
+  --line: #dce4e8;
+  --primary: #0b5d6b;
+  --primary-strong: #084653;
+  --accent: #d9681f;
+  --accent-soft: #fff4ea;
+  --shadow: 0 14px 30px rgba(18, 42, 52, 0.08);
+  --shadow-soft: 0 6px 16px rgba(18, 42, 52, 0.06);
+  --card-bg: rgba(255, 255, 255, 0.94);
+}
+
+[data-theme="dark"] {
+  --bg: #081418;
+  --surface: #0f2026;
+  --surface-strong: #183039;
+  --text: #f1f6f8;
+  --muted: #b9c5ca;
+  --line: #27434b;
+  --primary: #60d2c7;
+  --primary-strong: #9be8df;
+  --accent: #f59a4a;
+  --accent-soft: rgba(245, 154, 74, 0.14);
+  --card-bg: rgba(15, 32, 38, 0.94);
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.container {
+  max-width: 1180px;
+}
+
+.navbar {
+  padding: 8px 0;
+}
+
+.brand-logo {
+  width: 166px;
+  height: 42px;
+  box-shadow: none;
+}
+
+.footer-brand .brand-logo {
+  width: 198px;
+  height: 54px;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.btn {
+  min-height: 38px;
+  padding: 0.48rem 0.88rem;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.btn-lg {
+  min-height: 44px;
+  padding: 0.56rem 1.05rem;
+  font-size: 0.94rem;
+}
+
+.hero-section {
+  min-height: 610px;
+}
+
+.hero-content {
+  padding-top: 52px;
+}
+
+.hero-section h1 {
+  max-width: 720px;
+  font-size: clamp(1.95rem, 3.2vw, 3.28rem);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.hero-section .lead {
+  max-width: 620px;
+  font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+}
+
+.hero-actions {
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.hero-stats div {
+  min-width: 132px;
+  padding: 11px 13px;
+}
+
+.hero-stats strong {
+  font-size: 1.24rem;
+}
+
+.hero-stats span {
+  font-size: 0.82rem;
+}
+
+.section {
+  padding: 56px 0;
+}
+
+.strip {
+  padding: 28px 0;
+}
+
+.section-heading {
+  max-width: 680px;
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+  line-height: 1.18;
+}
+
+.section-copy {
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.eyebrow,
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+}
+
+.feature-card,
+.pricing-card,
+.lead-form,
+.feedback-form,
+.mission-panel,
+.contact-card,
+.school-portal-card,
+.download-card,
+.pricing-details,
+.license-board {
+  box-shadow: var(--shadow-soft);
+}
+
+.feature-card,
+.pricing-card,
+.lead-form,
+.feedback-form,
+.mission-panel,
+.contact-card {
+  padding: 20px;
+}
+
+.feature-card i,
+.advantage-card i,
+.mission-panel i,
+.contact-card i,
+.license-icon,
+.portal-card-head > i {
+  width: 38px;
+  height: 38px;
+  font-size: 1.1rem;
+}
+
+.feature-card h3,
+.pricing-details h3,
+.portal-card-head h3,
+.download-card h3 {
+  font-size: 1.08rem;
+}
+
+.feature-card p,
+.pricing-card p,
+.mission-panel p,
+.pricing-details p,
+.download-card p,
+.portal-points span,
+.pricing-details li,
+.pricing-card li {
+  font-size: 0.9rem;
+}
+
+.audience-grid span {
+  min-height: 62px;
+  padding: 11px;
+  font-size: 0.88rem;
+}
+
+.advantage-card {
+  padding: 14px;
+}
+
+.license-board {
+  padding: 20px;
+}
+
+.license-card {
+  gap: 14px;
+  padding: 14px;
+}
+
+.license-card h3 {
+  font-size: 1.08rem;
+}
+
+.license-card p {
+  font-size: 0.86rem;
+}
+
+.license-offer-strip {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+}
+
+.duration-grid {
+  gap: 8px;
+}
+
+.duration-card {
+  padding: 10px;
+}
+
+.duration-card > span,
+.intro-price small {
+  font-size: 0.68rem;
+}
+
+.duration-card strong {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+}
+
+.intro-price b {
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+}
+
+.download-card {
+  gap: 16px;
+  padding: 22px;
+}
+
+.download-icon {
+  width: 58px;
+  height: 58px;
+  font-size: 1.55rem;
+}
+
+.download-card h3 {
+  margin-top: 12px;
+}
+
+.download-meta {
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.download-meta div,
+.download-count {
+  padding: 11px;
+}
+
+.school-portal-card {
+  padding: 20px;
+}
+
+.portal-card-head {
+  margin-bottom: 16px;
+}
+
+.school-login-form,
+.school-activation-form {
+  padding: 14px;
+}
+
+.school-login-form h3,
+.school-activation-form h3 {
+  font-size: 1rem;
+}
+
+.form-control,
+.form-select {
+  min-height: 38px;
+  font-size: 0.9rem;
+}
+
+label {
+  font-size: 0.86rem;
+}
+
+.account-status-card {
+  gap: 10px;
+}
+
+.account-status-card div {
+  padding: 10px;
+}
+
+.account-status-card span {
+  font-size: 0.72rem;
+}
+
+.account-status-card strong {
+  font-size: 0.93rem;
+}
+
+.price-table th,
+.price-table td {
+  padding: 9px 10px;
+  font-size: 0.86rem;
+}
+
+.license-plan-table thead tr:first-child th {
+  font-size: 1.05rem;
+}
+
+.license-plan-table tbody th span {
+  font-size: 1.12rem;
+}
+
+.license-plan-table .price-cell strong {
+  font-size: 1.12rem;
+}
+
+@media (max-width: 991.98px) {
+  .hero-section {
+    min-height: 640px;
+  }
+
+  .section {
+    padding: 44px 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  body {
+    font-size: 14px;
+  }
+
+  .hero-section {
+    min-height: 620px;
+  }
+
+  .hero-content {
+    padding-top: 36px;
+  }
+
+  .hero-section h1 {
+    font-size: 1.82rem;
+  }
+
+  .section-title {
+    font-size: 1.42rem;
+  }
+
+  .license-card,
+  .pricing-details,
+  .download-card {
+    grid-template-columns: 1fr;
   }
 }
