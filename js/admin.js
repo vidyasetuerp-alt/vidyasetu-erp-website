@@ -297,7 +297,8 @@
       await showDashboard();
       return;
     } catch (error) {
-      if (passwordInput.value === PASSWORD && !error.status) {
+      const backendIsMissing = !error.status || error.status === 404 || error.status === 405;
+      if (passwordInput.value === PASSWORD && backendIsMissing) {
         sessionStorage.setItem(AUTH_KEY, "1");
         loginStatus.textContent = "";
         await showDashboard();
