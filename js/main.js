@@ -87,6 +87,14 @@
     return payload;
   }
 
+  function isStaticBackendHost() {
+    return window.location.protocol === "file:" || window.location.hostname.endsWith("github.io");
+  }
+
+  function backendLooksMissing(error) {
+    return !error.status || error.status === 404 || error.status === 405;
+  }
+
   function schoolAuthHeaders() {
     const token = getSchoolSessionToken();
     return token ? { Authorization: `Bearer ${token}` } : {};
@@ -431,7 +439,7 @@
       return;
     }
 
-    if (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1") {
+    if (!isStaticBackendHost() && (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1")) {
       try {
         const apiAccount = await apiGetSchoolAccount();
         renderSchoolAccount(apiAccount);
@@ -770,19 +778,21 @@
     const mobile = document.getElementById("portalMobile")?.value.trim() || "";
     const password = document.getElementById("portalPassword")?.value || "";
 
-    try {
-      await apiSchoolLogin(email, mobile, password);
-      if (schoolLoginStatus) {
-        schoolLoginStatus.textContent = "Account opened. Redirecting to school dashboard.";
-      }
-      window.location.href = "school-dashboard.html";
-      return;
-    } catch (error) {
-      if (error.status && error.status !== 404) {
-        clearSchoolSessionToken();
-        clearSchoolAccountView();
-        if (schoolLoginStatus) schoolLoginStatus.textContent = error.message || "Unable to login. Please try again.";
+    if (!isStaticBackendHost()) {
+      try {
+        await apiSchoolLogin(email, mobile, password);
+        if (schoolLoginStatus) {
+          schoolLoginStatus.textContent = "Account opened. Redirecting to school dashboard.";
+        }
+        window.location.href = "school-dashboard.html";
         return;
+      } catch (error) {
+        if (!backendLooksMissing(error)) {
+          clearSchoolSessionToken();
+          clearSchoolAccountView();
+          if (schoolLoginStatus) schoolLoginStatus.textContent = error.message || "Unable to login. Please try again.";
+          return;
+        }
       }
     }
 
@@ -813,19 +823,21 @@
     const mobile = document.getElementById("createPortalMobile")?.value.trim() || "";
     const password = document.getElementById("createPortalPassword")?.value || "";
 
-    try {
-      await apiSchoolCreate(email, mobile, password);
-      if (schoolCreateStatus) {
-        schoolCreateStatus.textContent = "School account created. Redirecting to activation details.";
-      }
-      window.location.href = "school-dashboard.html";
-      return;
-    } catch (error) {
-      if (error.status) {
-        clearSchoolSessionToken();
-        clearSchoolAccountView();
-        if (schoolCreateStatus) schoolCreateStatus.textContent = error.message || "Unable to create account. Please try again.";
+    if (!isStaticBackendHost()) {
+      try {
+        await apiSchoolCreate(email, mobile, password);
+        if (schoolCreateStatus) {
+          schoolCreateStatus.textContent = "School account created. Redirecting to activation details.";
+        }
+        window.location.href = "school-dashboard.html";
         return;
+      } catch (error) {
+        if (!backendLooksMissing(error)) {
+          clearSchoolSessionToken();
+          clearSchoolAccountView();
+          if (schoolCreateStatus) schoolCreateStatus.textContent = error.message || "Unable to create account. Please try again.";
+          return;
+        }
       }
     }
 
@@ -883,7 +895,7 @@
       remarks: document.getElementById("portalRemarks")?.value.trim()
     };
 
-    if (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1") {
+    if (!isStaticBackendHost() && (sessionStorage.getItem(schoolApiModeKey) === "1" || localStorage.getItem(schoolApiModeKey) === "1")) {
       try {
         const savedAccount = await apiSaveSchoolDetails(activationDetails);
         renderSchoolAccount(savedAccount);
