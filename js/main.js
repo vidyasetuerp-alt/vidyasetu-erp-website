@@ -79,7 +79,7 @@
       payload = {};
     }
     if (!response.ok) {
-      const error = new Error(payload.message || "Request failed.");
+      const error = new Error(payload.message || `Request failed with status ${response.status}.`);
       error.code = payload.error;
       error.status = response.status;
       throw error;
@@ -88,7 +88,8 @@
   }
 
   function isStaticBackendHost() {
-    return window.location.protocol === "file:" || window.location.hostname.endsWith("github.io");
+    return window.location.protocol === "file:"
+      || !["", "localhost", "127.0.0.1"].includes(window.location.hostname);
   }
 
   function backendLooksMissing(error) {
