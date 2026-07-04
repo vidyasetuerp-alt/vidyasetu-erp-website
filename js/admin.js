@@ -18,6 +18,18 @@
   const logout = document.getElementById("adminLogout");
   const activationStatus = document.getElementById("adminActivationStatus");
 
+  function isStaticAdminHost() {
+    return window.location.protocol === "file:"
+      || window.location.hostname.endsWith("github.io")
+      || !["", "localhost", "127.0.0.1"].includes(window.location.hostname);
+  }
+
+  async function openStaticDashboard() {
+    sessionStorage.setItem(AUTH_KEY, "1");
+    loginStatus.textContent = "";
+    await showDashboard();
+  }
+
   async function requestJson(url, options = {}) {
     const response = await fetch(url, {
       ...options,
@@ -291,17 +303,21 @@
 
   loginForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const enteredPassword = passwordInput.value.trim();
+    if (enteredPassword === PASSWORD && isStaticAdminHost()) {
+      await openStaticDashboard();
+      return;
+    }
+
     try {
-      await apiAdminLogin(passwordInput.value);
+      await apiAdminLogin(enteredPassword);
       loginStatus.textContent = "";
       await showDashboard();
       return;
     } catch (error) {
-      const backendIsMissing = !error.status || error.status === 404 || error.status === 405;
-      if (passwordInput.value === PASSWORD && backendIsMissing) {
-        sessionStorage.setItem(AUTH_KEY, "1");
-        loginStatus.textContent = "";
-        await showDashboard();
+      const backendIsMissing = !error.status || ![401, 403].includes(error.status);
+      if (enteredPassword === PASSWORD && backendIsMissing) {
+        await openStaticDashboard();
         return;
       }
     }
