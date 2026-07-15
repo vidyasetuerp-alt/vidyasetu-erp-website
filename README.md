@@ -1,132 +1,128 @@
-﻿# VidyaSetu Tech Website
+# VidyaSetu Tech website
 
-Responsive website for VidyaSetu Tech and VidyaSetu ERP.
+Production-ready static website for `https://vidyasetuerptech.com`. It uses HTML5, CSS3 and vanilla JavaScript, requires no build step, database or paid API, and is designed for GitHub Pages.
 
-The school activation account and admin activation key workflow now use a small backend database server. Run the site with `py server.py` when you need school login, machine ID submission, admin activation key entry, and school activation-key display to work across browsers.
+## Website structure
 
-## Project Structure
+- `index.html` — home page, product introduction and comparison.
+- `products.html` — product chooser.
+- `vidyasetu-erp.html` — VidyaSetu ERP v1.05 product page.
+- `vidyasetu-sr-erp.html` — VidyaSetu ERP Sr. v1.01 product page.
+- `pricing.html`, `downloads.html`, `about.html`, `contact.html` — supporting pages.
+- `privacy-policy.html`, `terms.html`, `404.html` — policy and error pages.
+- `css/style.css` — all site styling and responsive rules.
+- `js/script.js` — shared navigation, footer, downloads, forms and configuration.
+- `images/` — replaceable logos and screenshots.
+- `assets/` — future public documents.
+- `CNAME` — preserves the custom domain.
+- `.nojekyll` — tells GitHub Pages to serve the static files directly.
+- `robots.txt` and `sitemap.xml` — search engine discovery.
 
-```text
-/
-|-- index.html
-|-- school-login.html
-|-- school-dashboard.html
-|-- admin.html
-|-- app_server.py
-|-- server.py
-|-- css/
-|   |-- styles.css
-|   `-- admin.css
-|-- js/
-|   |-- main.js
-|   `-- admin.js
-|-- images/
-|   |-- favicon.svg
-|   |-- vidyasetu-logo.png
-|   |-- vidyasetu-logo-horizontal.png
-|   `-- vidyasetu-erp-hero.png
-|-- database/
-|   `-- .gitkeep
-`-- README.md
-```
+## Preview locally
 
-## Run Locally
-
-For the full database-backed site, run:
-
-```bash
-py server.py
-```
-
-Then open:
-
-```text
-http://127.0.0.1:5187
-```
-
-The server stores activation accounts in:
-
-```text
-database/vidyasetu-db.json
-```
-
-Optional activation-key email sending can be enabled with SMTP environment variables before running the server:
+The simplest preview is to open `index.html` in a browser. For a more accurate local web server, run one of these from the repository folder:
 
 ```powershell
-$env:VIDYASETU_SMTP_HOST="smtp.example.com"
-$env:VIDYASETU_SMTP_PORT="587"
-$env:VIDYASETU_SMTP_FROM="support@vidyasetuerptech.com"
-$env:VIDYASETU_SMTP_USER="your-smtp-user"
-$env:VIDYASETU_SMTP_PASSWORD="your-smtp-password"
-py server.py
-```
-
-If SMTP is not configured, activation keys are still saved and visible through the school login, but no email is sent.
-
-You can still open `index.html` directly in a browser, or serve the folder with any static server, but the school/admin activation database will not be shared in that mode.
-
-For static-only preview:
-
-```bash
 python -m http.server 8000
 ```
 
-Then open:
+Then open `http://localhost:8000`. No package installation is required.
 
-```text
-http://localhost:8000
+## Upload to GitHub
+
+1. Create or open the GitHub repository that will host the website.
+2. Commit every file in this folder, including `.nojekyll` and `CNAME`.
+3. Push the files to the repository's default branch, normally `main`.
+4. Do not upload Windows installers directly to the website repository; attach them to GitHub Releases.
+
+## Enable GitHub Pages
+
+1. In the repository, open **Settings → Pages**.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select the default branch and the `/ (root)` folder, then save.
+4. Wait for GitHub Pages to publish the site.
+
+The site uses relative internal links, so it can be tested under a GitHub repository path as well as the custom domain. Canonical and sitemap URLs intentionally point to the public custom domain.
+
+## Connect `vidyasetuerptech.com`
+
+1. Keep the `CNAME` file at the repository root. Its only content must remain `vidyasetuerptech.com`.
+2. In GitHub Pages settings, enter `vidyasetuerptech.com` as the custom domain.
+3. At the domain registrar or DNS provider, add the records currently documented by GitHub for an apex domain. Verify the current GitHub Pages IP addresses in GitHub's official documentation before changing DNS.
+4. After DNS validation, enable **Enforce HTTPS** in GitHub Pages settings.
+
+Never delete, rename or add extra lines to `CNAME` while the custom domain is in use. DNS changes can take time to propagate.
+
+## Update versions and download links
+
+All installer URLs are centralized at the top of `js/script.js`:
+
+```javascript
+const PRODUCT_LINKS = {
+  vidyasetuErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.05/VidyaSetuERP_Setup_v1.05.exe",
+  vidyasetuSrErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.01/VidyaSetuERPSr_Setup_v1.01.exe",
+  allReleases: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases"
+};
 ```
 
-## Deploy Free on GitHub Pages
+Both current installer URLs are active. When publishing a newer version, replace its exact release-asset URL in `PRODUCT_LINKS`, then search the HTML files for the old visible version number and update page titles, badges, button labels, descriptions, release notes and SoftwareApplication structured data together.
 
-GitHub Pages can host the public static website only. It cannot run `server.py`, so the school login, database-backed machine ID submission, and admin activation key workflow need a separate Python backend host.
+## Create a GitHub Release
 
-1. Create a new GitHub repository.
-2. Upload all files from this folder to the repository root.
-3. Go to repository `Settings`.
-4. Open `Pages`.
-5. Under `Build and deployment`, choose `Deploy from a branch`.
-6. Select the `main` branch and `/root` folder.
-7. Save and wait for GitHub Pages to publish the website.
+1. Build and verify the installer outside this website repository.
+2. In the repository, open **Releases → Draft a new release**.
+3. Create a version tag such as `v1.06` or the correct ERP Sr. tag.
+4. Add clear release notes, compatibility notes and upgrade/backup guidance.
+5. Attach the correct installer with an unambiguous product and version filename.
+6. Publish the release, copy the release asset URL, and update `PRODUCT_LINKS`.
+7. Test the website's download confirmation modal and the final download.
 
-Your site will be available at:
+## Edit contact details
 
-```text
-https://your-username.github.io/your-repository-name/
+Update `CONTACT_CONFIG` at the top of `js/script.js`:
+
+```javascript
+const CONTACT_CONFIG = {
+  whatsappNumber: "913678260401",
+  phoneNumber: "+918638663327",
+  phoneDisplay: "+918638663327",
+  salesEmail: "info@vidyasetuerptech.com",
+  supportEmail: "vidyasetu.erp@gmail.com"
+};
 ```
 
-For full activation workflow hosting, deploy this repository to a Python-capable host such as Render, Railway, PythonAnywhere, or a VPS, and run `py server.py` / `python server.py`.
+Keep the WhatsApp number in international format without spaces or a `+`. Keep the callable number in international format with a leading `+`. The contact page and shared footer read these values from the central configuration. The business-location placeholder remains intentionally unpublished until a real location is supplied.
 
-## Deploy Free on Netlify
+## Edit pricing
 
-1. Go to [Netlify](https://www.netlify.com/).
-2. Sign in and choose `Add new site`.
-3. Select `Deploy manually`, then drag and drop this project folder.
-4. Netlify will publish the static website automatically.
+Pricing is plain text in `pricing.html` and has separate capacity schedules for both products. VidyaSetu ERP uses Basic (up to 200), Standard (up to 500), Premium (up to 1,000), and Enterprise (unlimited). VidyaSetu ERP Sr. uses Basic (up to 300), Standard (up to 600), Premium (up to 1,200), and Enterprise (unlimited). Update standard prices, introductory prices, per-day comparisons, and student limits together. Never copy prices between products automatically, and keep the tax and final-quotation notes visible.
 
-You can also connect a GitHub repository:
+## Replace logos and screenshots
 
-1. Choose `Import an existing project`.
-2. Select your GitHub repository.
-3. Leave build command empty.
-4. Set publish directory to `/`.
-5. Deploy.
+See `images/README.md` for target filenames. Use optimized WebP, JPG or PNG images and descriptive `alt` text. Remove or obscure student names, phone numbers, photographs, fee records and other sensitive information before publishing. Replace the CSS placeholder blocks only after the real images exist, so the site never contains broken images.
 
-## Customization
+## Confirm residential features
 
-- Current contact email is `info@vidyasetuerptech.com`.
-- Current support email is `support@vidyasetuerptech.com`.
-- Current mobile number is `+91 8638663327`.
-- WhatsApp contact is enabled through the floating button and contact card.
-- Replace `images/vidyasetu-logo.png` if you want to update the brand logo.
-- Replace placeholder screenshot SVG files in `images/` with real product screenshots when available.
-- The website download button points directly to the installer release asset: `https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.05/VidyaSetuERP_Setup_v1.05.exe`.
-- The admin page is `admin.html` and uses the password configured in `app_server.py`.
-- The download counter is stored in the backend JSON database when the site is run with `py server.py`, so the admin count is shared across machines. If the site is opened as static files, it falls back to browser `localStorage`.
-- Demo request submissions are saved in the browser with `localStorage` and can be viewed/exported from `admin.html`.
-- App feedback submissions are saved in the browser with `localStorage` and can be viewed/exported from `admin.html`.
-- After-sales feedback submissions are saved separately in the browser with `localStorage` and published as after-sales feedback cards on the site after submission.
-- For live public lead capture from all visitors, connect the form to a backend, Google Forms, Netlify Forms, Firebase, or Supabase.
-- When uploading to GitHub Pages, keep installer files under 100 MB or use GitHub Releases for larger installers.
-- Update social media links in the footer.
+The ERP Sr. page intentionally marks residential modules as **Confirm availability** and contains this developer comment:
 
+```html
+<!-- Remove or edit any residential feature that is not currently available in VidyaSetu Sr. ERP. -->
+```
+
+Confirm each module with the product team before removing those labels. Do not present possible mess, hostel staff or health modules as implemented without verification.
+
+## Test before publishing
+
+Check every page and navigation link at desktop, tablet and mobile widths. In browser developer tools, test at approximately 375 px, 768 px and 1440 px. Verify:
+
+- Mobile navigation opens and all links work.
+- Product comparison filters display correctly.
+- Both download confirmation flows identify the correct product and version.
+- ERP Sr. remains disabled while its placeholder link is present.
+- The enquiry form validates required fields and creates a readable WhatsApp or email message.
+- FAQ, copy-email and back-to-top controls work with keyboard and pointer input.
+- No horizontal scrolling appears on small screens.
+- Both the GitHub Pages repository URL and `https://vidyasetuerptech.com` serve CSS and JavaScript correctly.
+- `CNAME`, privacy policy, terms, sitemap and robots file remain available.
+
+The privacy policy and terms are careful starter documents, not legal advice. Review them against actual business and data-handling practices before launch.
