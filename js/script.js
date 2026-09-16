@@ -1,7 +1,7 @@
 /* EDITABLE BUSINESS INFORMATION: update contact details and product links here. */
 const PRODUCT_LINKS = {
-  vidyasetuErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.05/VidyaSetuERP_Setup_v1.05.exe",
-  vidyasetuSrErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.01/VidyaSetuERPSr_Setup_v1.01.exe",
+  vidyasetuErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.06/VidyaSetuERP_Setup_v1.06.exe",
+  vidyasetuSrErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.02/VidyaSetuERPSr_Setup_v1.02.exe",
   allReleases: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases"
 };
 const CONTACT_CONFIG = {
@@ -13,15 +13,6 @@ const CONTACT_CONFIG = {
 };
 
 const page = document.body.dataset.page || "";
-if(page==='downloads'){
-  document.querySelectorAll('.product-card.sr p').forEach(p=>{if(p.textContent.includes('awaiting configuration')) p.textContent='Separate official Windows installer for Classes VI–XII institutions with residential or hostel requirements.';});
-  const releaseInfo=document.querySelector('.product-card.sr a[href="vidyasetu-sr-erp.html"]');
-  if(releaseInfo){releaseInfo.href='https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/tag/v1.01';releaseInfo.target='_blank';releaseInfo.rel='noopener';releaseInfo.textContent='Release notes';}
-}
-if(page==='sr'){
-  const installerLead=document.querySelector('.cta .lead');
-  if(installerLead?.textContent.includes('activated after')) installerLead.textContent='Download the official VidyaSetu ERP Sr. v1.01 Windows installer after confirming this is the correct product for your institution.';
-}
 const navItems = [
   ["index.html","Home","home"],["products.html","Products","products"],["vidyasetu-erp.html","VidyaSetu ERP","erp"],
   ["vidyasetu-sr-erp.html","VidyaSetu ERP Sr.","sr"],["pricing.html","Pricing","pricing"],["downloads.html","Downloads","downloads"],
@@ -31,6 +22,15 @@ const header = document.querySelector("[data-site-header]");
 if(header){header.innerHTML=`<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html" aria-label="VidyaSetu Tech home"><span class="brand-mark">VS</span><span>VidyaSetu Tech</span></a><nav class="nav-links" aria-label="Primary navigation">${navItems.map(([href,label,id])=>`<a href="${href}" class="${page===id?'active':''}">${label}</a>`).join('')}</nav><div class="nav-actions"><a class="btn btn-outline" href="downloads.html">Download</a><a class="btn btn-primary" href="contact.html#demo">Request a Demo</a></div><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button></div></header>`}
 const footer = document.querySelector("[data-site-footer]");
 if(footer){footer.innerHTML=`<footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">VS</span><span style="color:#fff">VidyaSetu Tech</span></a><p>Smart School Management Solutions for Modern Institutions.</p><p class="muted">Focused offline-first Windows ERP software for real school administration needs.</p></div><div><h3>Products</h3><div class="footer-links"><a href="vidyasetu-erp.html">VidyaSetu ERP</a><a href="vidyasetu-sr-erp.html">VidyaSetu ERP Sr.</a><a href="pricing.html">Pricing</a><a href="downloads.html">Downloads</a></div></div><div><h3>Company</h3><div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a></div></div><div><h3>Contact</h3><div class="footer-links"><a href="mailto:${CONTACT_CONFIG.salesEmail}">${CONTACT_CONFIG.salesEmail}</a><a href="mailto:${CONTACT_CONFIG.supportEmail}">Support email</a><a href="${PRODUCT_LINKS.allReleases}" target="_blank" rel="noopener">GitHub Releases</a></div></div></div><div class="footer-bottom">© <span data-year></span> VidyaSetu Tech. All Rights Reserved.<br>VidyaSetu ERP and VidyaSetu ERP Sr. are software products of VidyaSetu Tech.</div></div></footer>`}
+/* The company logo is shared by every page through the header and footer. */
+document.querySelectorAll('.brand-mark').forEach(mark=>{
+  const logo=document.createElement('img');
+  logo.src='images/logo.png';
+  logo.alt=''; // The adjacent brand text provides the accessible company name.
+  logo.className=mark.closest('.site-footer')?'company-logo company-logo-footer':'company-logo';
+  if(mark.closest('.site-footer')) logo.loading='lazy';
+  mark.replaceWith(logo);
+});
 const footerContact=document.querySelector('.site-footer .footer-grid > div:last-child .footer-links');
 if(footerContact){
   const alternateEmail=footerContact.querySelector(`a[href="mailto:${CONTACT_CONFIG.supportEmail}"]`);
@@ -46,7 +46,7 @@ document.querySelectorAll('[data-download]').forEach(button=>button.addEventList
   const link=PRODUCT_LINKS[key]; const modal=document.querySelector('#downloadModal');
   if(!modal)return;
   modal.querySelector('[data-modal-product]').textContent=isSr?'VidyaSetu ERP Sr.':'VidyaSetu ERP';
-  modal.querySelector('[data-modal-version]').textContent=isSr?'v1.01':'v1.05';
+  modal.querySelector('[data-modal-version]').textContent=isSr?'v1.02':'v1.06';
   const go=modal.querySelector('[data-confirm-download]'); go.dataset.url=link; go.textContent=isSr&&link.startsWith('VIDYASETU_')?'Installer link coming soon':'Continue to download';
   go.disabled=isSr&&link.startsWith('VIDYASETU_'); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
 }));

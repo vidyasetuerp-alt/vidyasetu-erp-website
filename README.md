@@ -6,8 +6,8 @@ Production-ready static website for `https://vidyasetuerptech.com`. It uses HTML
 
 - `index.html` — home page, product introduction and comparison.
 - `products.html` — product chooser.
-- `vidyasetu-erp.html` — VidyaSetu ERP v1.05 product page.
-- `vidyasetu-sr-erp.html` — VidyaSetu ERP Sr. v1.01 product page.
+- `vidyasetu-erp.html` — VidyaSetu ERP v1.06 product page.
+- `vidyasetu-sr-erp.html` — VidyaSetu ERP Sr. v1.02 product page.
 - `pricing.html`, `downloads.html`, `about.html`, `contact.html` — supporting pages.
 - `privacy-policy.html`, `terms.html`, `404.html` — policy and error pages.
 - `css/style.css` — all site styling and responsive rules.
@@ -59,8 +59,8 @@ All installer URLs are centralized at the top of `js/script.js`:
 
 ```javascript
 const PRODUCT_LINKS = {
-  vidyasetuErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.05/VidyaSetuERP_Setup_v1.05.exe",
-  vidyasetuSrErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.01/VidyaSetuERPSr_Setup_v1.01.exe",
+  vidyasetuErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.06/VidyaSetuERP_Setup_v1.06.exe",
+  vidyasetuSrErp: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases/download/v1.02/VidyaSetuERPSr_Setup_v1.02.exe",
   allReleases: "https://github.com/vidyasetuerp-alt/vidyasetu-erp-website/releases"
 };
 ```

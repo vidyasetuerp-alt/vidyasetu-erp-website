@@ -4,9 +4,9 @@ The official product logos are now included and displayed throughout the matchin
 
 Add these production files when ready:
 
-- `logo.png` — company logo, ideally transparent PNG.
-- `vidyasetu-erp-logo.png` — official VidyaSetu ERP product logo (in use).
-- `vidyasetu-sr-logo.png` — official VidyaSetu ERP Sr. product logo (in use).
+- `logo.png` — official VidyaSetu Tech company logo (in use in the shared header and footer).
+- `vidyasetu-erp-logo.png` — updated official VidyaSetu ERP product logo (in use).
+- `vidyasetu-sr-logo.png` — updated official VidyaSetu ERP Sr. product logo (in use).
 - `erp-dashboard-placeholder.jpg` — actual VidyaSetu ERP dashboard screenshot.
 - `sr-dashboard-placeholder.jpg` — actual VidyaSetu ERP Sr. dashboard screenshot.
 
