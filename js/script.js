@@ -76,6 +76,56 @@ if(page==='erp'||page==='sr'){
     target.innerHTML=`<img src="${PRODUCT_LOGOS[kind].src}" alt="${PRODUCT_LOGOS[kind].alt}">`;
   }
 }
+
+/* Genuine application previews captured from the products' isolated demo builds. */
+const PRODUCT_SCREENSHOTS = {
+  erp: {
+    src: 'images/vidyasetu-erp-dashboard.png',
+    alt: 'VidyaSetu ERP demo dashboard showing school statistics, navigation and reports',
+    label: 'VidyaSetu ERP'
+  },
+  sr: {
+    src: 'images/vidyasetu-sr-dashboard.png',
+    alt: 'VidyaSetu ERP Sr. demo dashboard for senior and residential school management',
+    label: 'VidyaSetu ERP Sr.'
+  }
+};
+function screenshotFigure(kind, className='app-preview-card'){
+  const screenshot=PRODUCT_SCREENSHOTS[kind];
+  const figure=document.createElement('figure');
+  figure.className=`${className}${kind==='sr'?' sr':''}`;
+  figure.innerHTML=`<img src="${screenshot.src}" alt="${screenshot.alt}" width="1928" height="1048" loading="lazy"><figcaption><strong>${screenshot.label} dashboard</strong><span>Actual application · Demo data</span></figcaption>`;
+  return figure;
+}
+if(page==='home'){
+  const illustration=document.querySelector('.dashboard');
+  if(illustration){
+    const stack=document.createElement('div');
+    stack.className='hero-preview-stack';
+    stack.setAttribute('aria-label','VidyaSetu software previews');
+    stack.append(screenshotFigure('erp','hero-app-preview hero-app-preview-main'));
+    stack.append(screenshotFigure('sr','hero-app-preview hero-app-preview-sr'));
+    illustration.replaceWith(stack);
+  }
+}
+if(page==='products'){
+  document.querySelectorAll('.product-card.erp, .product-card.sr').forEach(card=>{
+    const placeholder=card.querySelector('.placeholder');
+    if(!placeholder)return;
+    const kind=card.classList.contains('sr')?'sr':'erp';
+    placeholder.replaceWith(screenshotFigure(kind));
+  });
+}
+if(page==='erp'||page==='sr'){
+  const gallery=document.querySelector('.section.surface .grid.grid-3');
+  if(gallery){
+    const kind=page==='sr'?'sr':'erp';
+    gallery.className='application-preview-wrap';
+    gallery.replaceChildren(screenshotFigure(kind,'app-preview-feature'));
+    const heading=gallery.closest('.section')?.querySelector('h2');
+    if(heading)heading.textContent=kind==='sr'?'See the real ERP Sr. workspace':'See the real VidyaSetu ERP workspace';
+  }
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('.modal.open')?.classList.remove('open')});
 
 document.querySelectorAll('.faq-button').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');item.classList.toggle('open');btn.setAttribute('aria-expanded',item.classList.contains('open'));}));

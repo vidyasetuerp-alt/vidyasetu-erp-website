@@ -1,13 +1,13 @@
 # Image replacement guide
 
-The official product logos are now included and displayed throughout the matching product cards and product pages. The site continues to use CSS screenshot placeholders so it never ships broken or misleading application imagery.
+The official company and product logos are displayed throughout the matching cards and pages. Current application screenshots were captured from isolated demo builds and are also displayed throughout the site.
 
 Add these production files when ready:
 
 - `logo.png` — official VidyaSetu Tech company logo (in use in the shared header and footer).
 - `vidyasetu-erp-logo.png` — updated official VidyaSetu ERP product logo (in use).
 - `vidyasetu-sr-logo.png` — updated official VidyaSetu ERP Sr. product logo (in use).
-- `erp-dashboard-placeholder.jpg` — actual VidyaSetu ERP dashboard screenshot.
-- `sr-dashboard-placeholder.jpg` — actual VidyaSetu ERP Sr. dashboard screenshot.
+- `vidyasetu-erp-dashboard.png` — VidyaSetu ERP dashboard captured with the built-in demo dataset (in use).
+- `vidyasetu-sr-dashboard.png` — VidyaSetu ERP Sr. dashboard captured with the built-in demo dataset (in use).
 
-After adding them, replace the matching `.placeholder` blocks in the HTML with accessible `<img>` elements. Never publish real student, employee or financial data in screenshots.
+The shared JavaScript replaces the legacy placeholder markup with accessible preview figures. Never replace these assets with screenshots containing real student, employee or financial data.
